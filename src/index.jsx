@@ -1,14 +1,12 @@
 import { createRoot } from "react-dom/client";
-import { MainView } from "./components/main-view/main-view"
+import MainView from "./components/main-view/main-view";
 
 // import statement indicating that './index.scss' needs to be bundled
 import "./index.scss";
 
 // main component
 const MySciFiApp = () => {
-  return (
-    <MainView />
-  );
+  return <MainView />;
 };
 
 // finds the root of the app

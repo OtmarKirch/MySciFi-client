@@ -1,5 +1,6 @@
 //list of mock data movies
 export const movies = [{
+    id: 1,
     //_id: ObjectId('663a4446f5fc80b9c0e00d8c'),
     title: 'The Dark Knight',
     description: 'The Dark Knight is a superhero film directed by Christopher Nolan. It follows the story of Batman as he faces off against his greatest adversary, the Joker, who unleashes chaos and destruction upon Gotham City. With its gripping plot, intense action sequences, and standout performances, The Dark Knight is widely regarded as one of the greatest superhero films of all time.',
@@ -17,6 +18,7 @@ export const movies = [{
     imgUrl: 'https://ew.com/thmb/B0w9qzmQqCZ1tumxv8cBx0aPTrQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mcddakn_ec005-2000-a3d30c1958fb442486fb1e10ba92dd17.jpg'
   },
   {
+    id: 2,
     //_id: ObjectId('663a4446f5fc80b9c0e00d8b'),
     title: 'The Godfather',
     description: 'The Godfather is a classic crime drama film directed by Francis Ford Coppola. It tells the story of the Corleone family, a powerful Mafia clan, and their struggles to maintain their empire amidst betrayal, violence, and family conflict. With its iconic performances, gripping storyline, and unforgettable scenes, The Godfather has become one of the most acclaimed films in cinematic history.',
@@ -34,6 +36,7 @@ export const movies = [{
     imgUrl: 'https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg'
   },
   {
+    id: 3,
     //_id: ObjectId('663a4446f5fc80b9c0e00d90'),
     title: 'Pulp Fiction',
     description: 'Pulp Fiction is a genre-defying crime film directed by Quentin Tarantino. It weaves together multiple interconnected storylines involving crime, violence, and redemption, set against the backdrop of Los Angeles. With its nonlinear narrative, memorable characters, and witty dialogue, Pulp Fiction is hailed as a masterpiece of contemporary cinema.',
