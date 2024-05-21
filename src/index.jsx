@@ -1,4 +1,5 @@
 import { createRoot } from "react-dom/client";
+import { MainView } from "./components/main-view/main-view"
 
 // import statement indicating that './index.scss' needs to be bundled
 import "./index.scss";
@@ -6,9 +7,7 @@ import "./index.scss";
 // main component
 const MySciFiApp = () => {
   return (
-    <div className="my-scifi">
-      <div>Good morning</div>
-    </div>
+    <MainView />
   );
 };
 
