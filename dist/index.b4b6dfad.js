@@ -27378,20 +27378,13 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
+var _movies = require("../../data/movies");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            title: "First Movie"
-        },
-        {
-            id: 2,
-            title: "Second Movie"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)((0, _movies.movies));
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    //if user has selected a movie, show it
     if (selectedMovie) {
         console.log("test");
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
@@ -27401,17 +27394,19 @@ const MainView = ()=>{
             }
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 13,
+            lineNumber: 15,
             columnNumber: 17
         }, undefined);
     }
+    //if there are no movies, show this alternative text
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "Movie list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 19,
+        lineNumber: 23,
         columnNumber: 16
     }, undefined);
+    //as default, show the list of all movies
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: movies.map((movie)=>{
             return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
@@ -27419,19 +27414,19 @@ const MainView = ()=>{
                 onMovieClick: (newSelectedMovie)=>{
                     setSelectedMovie(newSelectedMovie);
                 }
-            }, movie.id, false, {
+            }, movie._id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 25,
+                lineNumber: 30,
                 columnNumber: 17
             }, undefined);
         })
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 23,
+        lineNumber: 28,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "Y58tRCfn2hbeZLG9VF6ydobwNYQ=");
+_s(MainView, "4WJMbVs7iruQBMJHgTys12NhcDM=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27441,7 +27436,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB","react/jsx-dev-runtime":"iTorj"}],"bwuIu":[function(require,module,exports) {
+},{"react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB","react/jsx-dev-runtime":"iTorj","../../data/movies":"9WJoQ"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27458,12 +27453,8 @@ const MovieCard = (props)=>{
         onClick: ()=>{
             props.onMovieClick(props.movieData);
         },
-        children: [
-            props.movieData.title,
-            ", ",
-            props.movieData.id
-        ]
-    }, void 0, true, {
+        children: props.movieData.title
+    }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
         lineNumber: 4,
         columnNumber: 9
@@ -27520,14 +27511,54 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MovieView", ()=>MovieView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 const MovieView = (props)=>{
-    console.log(props.movieData);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: props.movieData.title
-            }, void 0, false, {
+                children: [
+                    "Title: ",
+                    props.movieData.title
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 4,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    "Director: ",
+                    props.movieData.director.name
+                ]
+            }, void 0, true, {
                 fileName: "src/components/movie-view/movie-view.jsx",
                 lineNumber: 5,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    "Genre: ",
+                    props.movieData.genre.name
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 6,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                src: props.movieData.imgUrl,
+                className: "movieImage"
+            }, void 0, false, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 7,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    "Description: ",
+                    props.movieData.description
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 8,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27535,13 +27566,13 @@ const MovieView = (props)=>{
                 children: "Go Back"
             }, void 0, false, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 6,
+                lineNumber: 9,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movie-view/movie-view.jsx",
-        lineNumber: 4,
+        lineNumber: 3,
         columnNumber: 9
     }, undefined);
 };
@@ -27554,6 +27585,59 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB"}]},["8GULu","d8fTC","d8Dch"], "d8Dch", "parcelRequire3ab7")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB"}],"9WJoQ":[function(require,module,exports) {
+//list of mock data movies
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "movies", ()=>movies);
+const movies = [
+    {
+        //_id: ObjectId('663a4446f5fc80b9c0e00d8c'),
+        title: "The Dark Knight",
+        description: "The Dark Knight is a superhero film directed by Christopher Nolan. It follows the story of Batman as he faces off against his greatest adversary, the Joker, who unleashes chaos and destruction upon Gotham City. With its gripping plot, intense action sequences, and standout performances, The Dark Knight is widely regarded as one of the greatest superhero films of all time.",
+        genre: {
+            name: "Action",
+            description: "Action films are works of fiction that emphasize fast-paced action, thrilling stunts, and exciting sequences. These films often feature heroic protagonists facing off against formidable adversaries, engaging viewers with adrenaline-fueled entertainment and suspenseful storytelling."
+        },
+        director: {
+            name: "Christopher Nolan",
+            description: "Christopher Nolan is a British-American film director, screenwriter, and producer. He is known for his innovative storytelling, intricate plots, and visually stunning cinematography. Nolan's films often explore themes of identity, time, and morality, captivating audiences with their complexity and depth."
+        },
+        ranking: 4,
+        imgUrl: "https://ew.com/thmb/B0w9qzmQqCZ1tumxv8cBx0aPTrQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/mcddakn_ec005-2000-a3d30c1958fb442486fb1e10ba92dd17.jpg"
+    },
+    {
+        //_id: ObjectId('663a4446f5fc80b9c0e00d8b'),
+        title: "The Godfather",
+        description: "The Godfather is a classic crime drama film directed by Francis Ford Coppola. It tells the story of the Corleone family, a powerful Mafia clan, and their struggles to maintain their empire amidst betrayal, violence, and family conflict. With its iconic performances, gripping storyline, and unforgettable scenes, The Godfather has become one of the most acclaimed films in cinematic history.",
+        genre: {
+            name: "Crime",
+            description: "Crime films are works of fiction that revolve around criminal activities, law enforcement, and the criminal justice system. These films often explore themes of morality, power, and justice, drawing viewers into the world of crime and its consequences."
+        },
+        director: {
+            name: "Francis Ford Coppola",
+            description: "Francis Ford Coppola is an American film director, producer, and screenwriter. He is best known for directing The Godfather trilogy, Apocalypse Now, and The Conversation. Coppola's films often explore themes of power, corruption, and the human condition."
+        },
+        ranking: 5,
+        imgUrl: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg"
+    },
+    {
+        //_id: ObjectId('663a4446f5fc80b9c0e00d90'),
+        title: "Pulp Fiction",
+        description: "Pulp Fiction is a genre-defying crime film directed by Quentin Tarantino. It weaves together multiple interconnected storylines involving crime, violence, and redemption, set against the backdrop of Los Angeles. With its nonlinear narrative, memorable characters, and witty dialogue, Pulp Fiction is hailed as a masterpiece of contemporary cinema.",
+        genre: {
+            name: "Crime",
+            description: "Crime films are works of fiction that revolve around criminal activities, law enforcement, and the criminal justice system. These films often explore themes of morality, power, and justice, drawing viewers into the world of crime and its consequences."
+        },
+        director: {
+            name: "Quentin Tarantino",
+            description: "Quentin Tarantino is an American filmmaker known for his distinctive style and unconventional storytelling techniques. He rose to fame with films like Reservoir Dogs, Pulp Fiction, and Kill Bill. Tarantino's films often feature nonlinear narratives, sharp dialogue, and a mix of humor and violence."
+        },
+        ranking: "4",
+        imgUrl: "https://www.miramax.com/assets/Pulp-Fiction1.png"
+    }
+];
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"cu90A"}]},["8GULu","d8fTC","d8Dch"], "d8Dch", "parcelRequire3ab7")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

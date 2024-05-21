@@ -4,7 +4,8 @@ export const MovieCard = (props) => {
         <div onClick={()=>{
             props.onMovieClick(props.movieData)
         }}>
-        {props.movieData.title}, {props.movieData.id}
+            
+        {props.movieData.title}
         </div>
     
 )
