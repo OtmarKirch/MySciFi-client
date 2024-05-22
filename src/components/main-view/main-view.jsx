@@ -1,24 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
-import { movies as movieList } from "../../data/movies";
 
 const MainView = () => {
-  const [movies, setMovies] = useState(movieList);
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch("https://sci-fi-app.onrender.com/movies/")
+      .then((response) => (movieData = response.json()))
+      .then((movieData) => {
+        const movieList = movieData.map((doc) => {
+          return {
+            title: doc.title,
+            director: doc.director.name,
+            genre: doc.genre.name,
+            imgUrl: doc.imgUrl,
+            description: doc.description,
+          };
+        });
+        setMovies(movieList);
+      });
+  });
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   //if user has selected a movie, show it
   if (selectedMovie) {
-    console.log("test");
+    const similarMoviesGenre = movies.filter((movie) => {
+      return movie.genre === selectedMovie.genre;
+    });
+    const similarMoviesDirector = movies.filter((movie) => {
+      return movie.director === selectedMovie.director;
+    })
     return (
-      <MovieView
-        movieData={selectedMovie}
-        onBackButton={() => {
-          setSelectedMovie(null);
-        }}
-      />
+      <>
+        <MovieView
+          movieData={selectedMovie}
+          onBackButton={() => {
+            setSelectedMovie(null);
+          }}
+        />
+        <h2>Movies in the Genre</h2>
+        {similarMoviesGenre.map((movie) => (
+          <MovieCard
+          key={movie.id}
+          movieData={movie}
+          onMovieClick={(newSelectedMovie)=>{
+            setSelectedMovie(newSelectedMovie)
+          }}
+          />
+        ))}
+        <h2>Movies from the Director</h2>
+        {similarMoviesDirector.map((movie) => (
+          <MovieCard
+          key={movie.id}
+          movieData={movie}
+          onMovieClick={(newSelectedMovie)=>{
+            setSelectedMovie(newSelectedMovie)
+          }}
+          />
+        ))}
+      </>
     );
   }
 
