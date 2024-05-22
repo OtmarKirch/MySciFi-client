@@ -54,7 +54,7 @@ const MainView = () => {
         <h2>Movies from the Director</h2>
         {similarMoviesDirector.map((movie) => (
           <MovieCard
-          key={movie.id}
+          key={movie._id}
           movieData={movie}
           onMovieClick={(newSelectedMovie)=>{
             setSelectedMovie(newSelectedMovie)
@@ -76,7 +76,7 @@ const MainView = () => {
       {movies.map((movie) => {
         return (
           <MovieCard
-            key={movie.id}
+            key={movie._id}
             movieData={movie}
             onMovieClick={(newSelectedMovie) => {
               setSelectedMovie(newSelectedMovie);

@@ -13,7 +13,7 @@ export const MovieView = (props) => {
   );
 };
 
-MovieView.PropTypes = {
+MovieView.propTypes = {
   movieData: PropTypes.shape({
     title: PropTypes.string.isRequired,
     director: PropTypes.string,
