@@ -2,19 +2,28 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
 
-const USERNAME = "167OLdP5BUfLZGxP"
-const PASSWORD = "K39eKYhPMV9DDWhJ"
 
 const MainView = () => {
   const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    fetch("https://sci-fi-app.onrender.com/movies/")
+    /* if (!token) {
+      return;
+    } */
+    fetch(
+      "https://sci-fi-app.onrender.com/movies/"
+      // {headers: {Authorization: `Bearer ${token}`}}
+    )
       .then((response) => (movieData = response.json()))
       .then((movieData) => {
         const movieList = movieData.map((doc) => {
           return {
+            id: doc._id,
             title: doc.title,
             director: doc.director.name,
             genre: doc.genre.name,
@@ -23,21 +32,41 @@ const MainView = () => {
           };
         });
         setMovies(movieList);
-      });
-  }, []);
+      })
+      .catch(error => console.error("Error:", error));
+  }, [token]);
 
-  const [selectedMovie, setSelectedMovie] = useState(null);
+ if (!user) {
+    return (
+      <LoginView
+        onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }}
+        User={user}
+      />
+    );
+  }
 
-  //if user has selected a movie, show it
+
+  //if user has selected a movie, show details of that movie
   if (selectedMovie) {
     const similarMoviesGenre = movies.filter((movie) => {
-      return movie.genre === selectedMovie.genre;
+      return movie.genre === selectedMovie.genre && movie.title != selectedMovie.title;
     });
     const similarMoviesDirector = movies.filter((movie) => {
-      return movie.director === selectedMovie.director;
-    })
+      return movie.director === selectedMovie.director && movie.title != selectedMovie.title;
+    });
     return (
       <>
+        <button
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+          }}
+        >
+          Log Out
+        </button>
         <MovieView
           movieData={selectedMovie}
           onBackButton={() => {
@@ -47,21 +76,21 @@ const MainView = () => {
         <h2>Movies in the Genre</h2>
         {similarMoviesGenre.map((movie) => (
           <MovieCard
-          key={movie.id}
-          movieData={movie}
-          onMovieClick={(newSelectedMovie)=>{
-            setSelectedMovie(newSelectedMovie)
-          }}
+            key={movie.id}
+            movieData={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
           />
         ))}
         <h2>Movies from the Director</h2>
         {similarMoviesDirector.map((movie) => (
           <MovieCard
-          key={movie._id}
-          movieData={movie}
-          onMovieClick={(newSelectedMovie)=>{
-            setSelectedMovie(newSelectedMovie)
-          }}
+            key={movie._id}
+            movieData={movie}
+            onMovieClick={(newSelectedMovie) => {
+              setSelectedMovie(newSelectedMovie);
+            }}
           />
         ))}
       </>
@@ -76,15 +105,25 @@ const MainView = () => {
   //as default, show the list of all movies
   return (
     <div>
+            <button
+              onClick={() => {
+                setUser(null);
+                setToken(null);
+              }}
+            >
+              Log Out
+            </button>
       {movies.map((movie) => {
         return (
-          <MovieCard
-            key={movie._id}
-            movieData={movie}
-            onMovieClick={(newSelectedMovie) => {
-              setSelectedMovie(newSelectedMovie);
-            }}
-          />
+          <>
+            <MovieCard
+              key={movie.id}
+              movieData={movie}
+              onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }}
+            />
+          </>
         );
       })}
     </div>
