@@ -5,6 +5,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { UserInfo } from "../user-info/user-info";
 import { SignupView } from "../signup-view/signup-view";
+import { LogoutButton } from "../logout-button/logout-button";
 
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -69,15 +70,13 @@ const MainView = () => {
     });
     return (
       <>
-        <button
-          onClick={() => {
-            setUser(null);
-            setToken(null);
-            localStorage.clear();
-          }}
-        >
-          Log Out
-        </button>
+        <UserInfo 
+          userLoggedIn={user.Username}
+        />
+        <LogoutButton 
+          resetToken={setToken}
+          resetUser={setUser}
+        />
         <MovieView
           movieData={selectedMovie}
           onBackButton={() => {
@@ -116,15 +115,13 @@ const MainView = () => {
   //as default, show the list of all movies
   return (
     <div>
-      <button
-        onClick={() => {
-          setUser(null);
-          setToken(null);
-          localStorage.clear();
-        }}
-      >
-        Log Out
-      </button>
+    <UserInfo 
+      userLoggedIn={user.Username}
+    />
+    <LogoutButton 
+      resetToken={setToken}
+      resetUser={setUser}
+    />
       {movies.map((movie) => {
         return (
           <>

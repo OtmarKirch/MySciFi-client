@@ -6,7 +6,7 @@ export const LogoutButton = ({resetUser, resetToken})=>{
 
     return (
         <>
-        <button onClick={()=>handleReset()}>Log Out</button>
+        <button onClick={()=>{handleReset(resetUser(), resetToken())}}>Log Out</button>
         </>
     )
 }
