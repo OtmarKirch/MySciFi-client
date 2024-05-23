@@ -8,33 +8,39 @@ export const SignupView = () => {
   const [birthday, setBirthday] = useState("");
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+
+    //API requires date in "DDMMYYYY" format
+    let formattedBirthday = ""
+    if (birthday) {
+      const inputBirthday = birthday;
+      const [year, month, day] = inputBirthday.split("-");
+      formattedBirthday = `${day}${month}${year}`;
+    }
 
     const data = {
-        Username: username,
-        name: name,
-        email: email,
-        Password: password,
-        //Birthday: birthday
-    }
-    console.log(data)
+      Username: username,
+      name: name,
+      email: email,
+      Password: password,
+      ...(formattedBirthday && { Birthday: formattedBirthday }),
+    };
+    console.log(data);
 
     fetch("https://sci-fi-app.onrender.com/users/register", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    }).then((response)=> {
-        if (response.ok) {
-            alert("Signup successful");
-            window.location.reload();
-
-        }else{
-            alert("Signup failed")
-        }
-    })
-
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => {
+      if (response.ok) {
+        alert("Signup successful");
+        window.location.reload();
+      } else {
+        alert("Signup failed");
+      }
+    });
   };
 
   return (
@@ -60,7 +66,7 @@ export const SignupView = () => {
           minLength="5"
         />
       </label>
-      <br/>
+      <br />
       <label>
         Email:
         <input
@@ -87,7 +93,9 @@ export const SignupView = () => {
         <input
           type="date"
           value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
+          onChange={(e) => {
+            setBirthday(e.target.value);
+          }}
         />
       </label>
       <button type="submit">Submit</button>
