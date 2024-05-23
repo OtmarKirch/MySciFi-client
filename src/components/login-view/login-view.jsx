@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-export const LoginView = ({ onLoggedIn, User }) => {
+export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,8 +12,6 @@ export const LoginView = ({ onLoggedIn, User }) => {
       Password: password,
     };
     const loginUrl = "https://sci-fi-app.onrender.com/login?Username=" + data.Username + "&" + "Password=" + data.Password
-
-    //https://sci-fi-app.onrender.com/login?Username=MikeS&Password=3nd93endjs
 
     fetch(loginUrl, {
       method: "POST",
@@ -29,13 +27,15 @@ export const LoginView = ({ onLoggedIn, User }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
-        console.log(User)
+        
         if (data.user) {
+          localStorage.setItem("user",JSON.stringify(data.user))
+          localStorage.setItem("token", data.token)
           onLoggedIn(data.user, data.token);
         } else {
           alert("No such user");
         }
-        console.log(User)
+        
       })
       .catch((e) => {
         alert("Something went wrong in the client app");
