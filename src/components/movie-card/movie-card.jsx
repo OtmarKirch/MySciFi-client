@@ -8,6 +8,8 @@ export const MovieCard = (props) => {
       }}
     >
       {props.movieData.title}
+      <div>{props.test}
+        </div> 
     </div>
   );
 
