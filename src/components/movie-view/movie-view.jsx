@@ -1,25 +1,57 @@
 import PropTypes from "prop-types";
-import {Button, Card} from "react-bootstrap"
+import { Button, Card } from "react-bootstrap";
+import { MovieCard } from "../movie-card/movie-card";
 
-export const MovieView = (props) => {
+export const MovieView = ({
+  movieData,
+  movies,
+  onMovieClick,
+  onBackButton,
+}) => {
+  const similarMoviesGenre = movies.filter((movie) => {
+    return movie.genre === movieData.genre && movie.title != movieData.title;
+  });
+  const similarMoviesDirector = movies.filter((movie) => {
+    return (
+      movie.director === movieData.director && movie.title != movieData.title
+    );
+  });
   return (
     <div>
       <Card>
-        <Card.Img src={props.movieData.imgUrl} className="movieImage"/>
+        <Card.Img src={movieData.imgUrl} className="movieImage" />
         <Card.Body>
-          <Card.Title>Title: {props.movieData.title}</Card.Title>
+          <Card.Title>Title: {movieData.title}</Card.Title>
           <Card.Text>
-            <div>Description: {props.movieData.description}</div>
-            <div>Director: {props.movieData.director}</div>
-            <div>Genre: {props.movieData.genre}</div>
+            <div>Description: {movieData.description}</div>
+            <div>Director: {movieData.director}</div>
+            <div>Genre: {movieData.genre}</div>
+        <Button
+          variant="link"
+          onClick={() => {
+            onBackButton();
+          }}
+        >
+          Go back
+        </Button>
+            <h2>Movies in the Genre</h2>
+            {similarMoviesGenre.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movieData={movie}
+                onMovieClick={onMovieClick}
+              />
+            ))}
+            <h2>Movies from the Director</h2>
+            {similarMoviesDirector.map((movie) => (
+              <MovieCard
+                key={movie._id}
+                movieData={movie}
+                onMovieClick={onMovieClick}
+              />
+            ))}
           </Card.Text>
         </Card.Body>
-        <Button
-        variant="link"
-        onClick={()=>{
-          props.onBackButton()
-        }}
-        >Go back</Button>
       </Card>
     </div>
   );
