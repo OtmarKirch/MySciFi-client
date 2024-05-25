@@ -1,9 +1,6 @@
-$color: steelblue;
+$primary: DarkSlateBlue;
+$body-bg: Ivory;
 
-.my-flix {
-  color: $color;
-}
+@import "~bootstrap/scss/bootstrap.scss"
 
-.movieImage {
-  width: 400px;
-}
+

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Card } from "react-bootstrap";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -39,7 +39,9 @@ export const SignupView = () => {
   };
 
   return (
-    <>
+    <Card>
+      <Card.Body>
+        <Card.Title className="mb-3 text-center">New Users</Card.Title>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label>Username:</Form.Label>
@@ -93,9 +95,11 @@ export const SignupView = () => {
       <Button
       variant="primary"
       type="submit"
+      className="mt-3 w-100"
       >Register</Button>
     </Form>
-    </>
+    </Card.Body>
+    </Card>
     
   );
 };

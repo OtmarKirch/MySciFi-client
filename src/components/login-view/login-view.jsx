@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import {Form,Button,Card} from "react-bootstrap"
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -49,7 +48,9 @@ export const LoginView = ({ onLoggedIn }) => {
   };
 
   return (
-    <>
+    <Card>
+      <Card.Body>
+      <Card.Title className="mb-3 text-center">Registered Users</Card.Title>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
@@ -71,11 +72,14 @@ export const LoginView = ({ onLoggedIn }) => {
             minLength="5"
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+
+        <Button type="submit" className="mt-3 w-100" variant="primary">
           Log In
         </Button>
       </Form>
+      </Card.Body>
       <br />
-    </>
+      
+    </Card>
   );
 };
