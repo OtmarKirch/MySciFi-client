@@ -6,7 +6,7 @@ export const MovieCard = (props) => {
     props.movieData.description.substring(0, 100) + "...";
   return (
     <>
-        <Card
+        <Card className="h-100"
         onClick={() => {
           props.onMovieClick(props.movieData);
         }}
