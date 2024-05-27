@@ -8,6 +8,7 @@ export const MovieView = ({
   onMovieClick,
   onBackButton,
 }) => {
+  const altTextImage = "Movie poster of " + movieData.title
   const similarMoviesGenre = movies.filter((movie) => {
     return movie.genre === movieData.genre && movie.title != movieData.title;
   });
@@ -20,7 +21,7 @@ export const MovieView = ({
     <div>
       <Row className="mb-4">
         <Card>
-          <Card.Img src={movieData.imgUrl} className="w-100" />
+          <Card.Img alt={altTextImage} src={movieData.imgUrl} className="w-100" />
           <Card.Body>
             <Card.Title>{movieData.title}</Card.Title>
             <Card.Text>

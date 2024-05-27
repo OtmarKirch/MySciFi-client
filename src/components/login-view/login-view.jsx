@@ -56,6 +56,8 @@ export const LoginView = ({ onLoggedIn }) => {
           <Form.Label>Username:</Form.Label>
           <Form.Control
             type="text"
+            aria-label="Put in your username"
+            aria-required="true"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -66,6 +68,8 @@ export const LoginView = ({ onLoggedIn }) => {
           <Form.Label>Password:</Form.Label>
           <Form.Control
             type="text"
+            aria-label="Put in your password"
+            aria-required="true"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required

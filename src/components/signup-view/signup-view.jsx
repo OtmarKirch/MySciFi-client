@@ -47,6 +47,8 @@ export const SignupView = () => {
         <Form.Label>Username:</Form.Label>
         <Form.Control
           type="text"
+          aria-label="Put in your username"
+          aria-required="true"
           value={username}
           onChange={(e)=>setUsername(e.target.value)}
           required
@@ -57,6 +59,8 @@ export const SignupView = () => {
         <Form.Label>Name:</Form.Label>
         <Form.Control
           type="text"
+          aria-label="Put in your name"
+          aria-required="true"
           value={name}
           onChange={(e)=>setName(e.target.value)}
           required
@@ -67,6 +71,8 @@ export const SignupView = () => {
         <Form.Label>Email:</Form.Label>
         <Form.Control
           type="email"
+          aria-label="Put in your email"
+          aria-required="true"
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
           required
@@ -77,6 +83,8 @@ export const SignupView = () => {
         <Form.Label>Password:</Form.Label>
         <Form.Control
         type="text"
+        aria-label="Put in your Password"
+        aria-required="true"
         value={password}
         onChange={(e)=>setPassword(e.target.value)}
         required
@@ -88,6 +96,8 @@ export const SignupView = () => {
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
+          aria-label="Put in your Birthday"
+          aria-required="false"
           value={birthday}
           onChange={(e)=>setBirthday(e.target.value)}
         ></Form.Control>

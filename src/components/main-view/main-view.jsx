@@ -80,7 +80,7 @@ const MainView = () => {
         </>
       ) : movies.length === 0 ? (
         <>
-          return <div>Movie list is empty!</div>;
+          return <div>Movie list is empty!</div>
         </>
       ) : (
         <>

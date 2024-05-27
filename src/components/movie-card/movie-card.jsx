@@ -4,6 +4,7 @@ import { Button, Card } from "react-bootstrap";
 export const MovieCard = (props) => {
   const shortDescription =
     props.movieData.description.substring(0, 100) + "...";
+  const altTextImage = "Movie poster of " + props.movieData.title
   return (
     <>
         <Card className="h-100"
@@ -11,7 +12,7 @@ export const MovieCard = (props) => {
           props.onMovieClick(props.movieData);
         }}
       >
-        <Card.Img className="movieImage" variant="top" src={props.movieData.imgUrl}/>
+        <Card.Img alt={altTextImage} variant="top" src={props.movieData.imgUrl}/>
         <Card.Body>
           <Card.Title>{props.movieData.title}</Card.Title>
           <Card.Text>{shortDescription}</Card.Text>
