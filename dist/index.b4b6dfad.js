@@ -41455,7 +41455,6 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
     const [newUsername, setNewUsername] = (0, _react.useState)("");
     const [newName, setNewName] = (0, _react.useState)("");
     const [newEmail, setNewEmail] = (0, _react.useState)("");
-    const [oldPassword, setOldPassword] = (0, _react.useState)("");
     const [newPassword, setNewPassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
@@ -41484,7 +41483,20 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
     };
     const handleSetNewPassword = (event)=>{
         event.preventDefault();
-        alert(oldPassword + newPassword);
+        const requestData = {
+            Password: newPassword
+        };
+        const confirmed = window.confirm("Please confirm to change your password");
+        if (confirmed) fetch("https://sci-fi-app.onrender.com/users/newpassword", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(requestData)
+        }).then(console.log("Password changed.")).catch((error)=>{
+            console.error("Error:", error);
+        });
     };
     const handleDeleteUser = (event)=>{
         event.preventDefault();
@@ -41515,14 +41527,14 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                             children: "User Profile"
                         }, void 0, false, {
                             fileName: "src/components/user-profile/user-profile.jsx",
-                            lineNumber: 81,
+                            lineNumber: 97,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
                             children: "For updating your details, fill out what you wish to update."
                         }, void 0, false, {
                             fileName: "src/components/user-profile/user-profile.jsx",
-                            lineNumber: 82,
+                            lineNumber: 98,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
@@ -41538,7 +41550,7 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 87,
+                                            lineNumber: 103,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -41551,13 +41563,13 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             minLength: 5
                                         }, void 0, false, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 88,
+                                            lineNumber: 104,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 86,
+                                    lineNumber: 102,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -41570,7 +41582,7 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 99,
+                                            lineNumber: 115,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -41580,13 +41592,13 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             onChange: (e)=>setNewName(e.target.value)
                                         }, void 0, false, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 100,
+                                            lineNumber: 116,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 98,
+                                    lineNumber: 114,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
@@ -41599,7 +41611,7 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 109,
+                                            lineNumber: 125,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -41609,13 +41621,13 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             onChange: (e)=>setNewEmail(e.target.value)
                                         }, void 0, false, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 110,
+                                            lineNumber: 126,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 108,
+                                    lineNumber: 124,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -41625,24 +41637,24 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                     children: "Update"
                                 }, void 0, false, {
                                     fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 118,
+                                    lineNumber: 134,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/user-profile/user-profile.jsx",
-                            lineNumber: 85,
+                            lineNumber: 101,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/user-profile/user-profile.jsx",
-                    lineNumber: 80,
+                    lineNumber: 96,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/user-profile/user-profile.jsx",
-                lineNumber: 79,
+                lineNumber: 95,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
@@ -41654,38 +41666,12 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                             children: "Set New Password"
                         }, void 0, false, {
                             fileName: "src/components/user-profile/user-profile.jsx",
-                            lineNumber: 126,
+                            lineNumber: 142,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
                             onSubmit: handleSetNewPassword,
                             children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                    controlId: "formOldPassword",
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                            children: "Old Password: "
-                                        }, void 0, false, {
-                                            fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 129,
-                                            columnNumber: 15
-                                        }, undefined),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                            type: "password",
-                                            "aria-label": "For updating put old password here",
-                                            value: oldPassword,
-                                            onChange: (e)=>setOldPassword(e.target.value)
-                                        }, void 0, false, {
-                                            fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 130,
-                                            columnNumber: 15
-                                        }, undefined)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 128,
-                                    columnNumber: 13
-                                }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
                                     controlId: "formNewPassword",
                                     children: [
@@ -41693,7 +41679,7 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             children: "Set new password: "
                                         }, void 0, false, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 139,
+                                            lineNumber: 145,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
@@ -41703,13 +41689,13 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                             onChange: (e)=>setNewPassword(e.target.value)
                                         }, void 0, false, {
                                             fileName: "src/components/user-profile/user-profile.jsx",
-                                            lineNumber: 140,
+                                            lineNumber: 146,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 138,
+                                    lineNumber: 144,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -41719,24 +41705,24 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                                     children: "Set New Password"
                                 }, void 0, false, {
                                     fileName: "src/components/user-profile/user-profile.jsx",
-                                    lineNumber: 147,
+                                    lineNumber: 153,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/user-profile/user-profile.jsx",
-                            lineNumber: 127,
+                            lineNumber: 143,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/user-profile/user-profile.jsx",
-                    lineNumber: 125,
+                    lineNumber: 141,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/user-profile/user-profile.jsx",
-                lineNumber: 124,
+                lineNumber: 140,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -41748,7 +41734,7 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                 children: "Log out"
             }, void 0, false, {
                 fileName: "src/components/user-profile/user-profile.jsx",
-                lineNumber: 153,
+                lineNumber: 159,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -41760,13 +41746,13 @@ const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
                 children: "Delete profile"
             }, void 0, false, {
                 fileName: "src/components/user-profile/user-profile.jsx",
-                lineNumber: 162,
+                lineNumber: 168,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(UserProfile, "j1365XRLJnTeFtcdXHMGzqIBaGc=");
+_s(UserProfile, "kRYwHKP2mIKsM80+j9q8gOO/hpU=");
 _c = UserProfile;
 var _c;
 $RefreshReg$(_c, "UserProfile");

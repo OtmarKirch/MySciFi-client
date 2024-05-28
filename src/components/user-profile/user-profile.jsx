@@ -10,7 +10,6 @@ export const UserProfile = ({
   const [newUsername, setNewUsername] = useState("");
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   const handleSubmit = (event) => {
@@ -49,7 +48,24 @@ export const UserProfile = ({
 
   const handleSetNewPassword = (event) => {
     event.preventDefault();
-    alert(oldPassword + newPassword);
+
+    const requestData = { Password:newPassword}
+
+    const confirmed = window.confirm("Please confirm to change your password")
+
+    if (confirmed){
+        fetch("https://sci-fi-app.onrender.com/users/newpassword", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestData),
+      }).then(console.log("Password changed."))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    }
   };
 
   const handleDeleteUser = (event) => {
@@ -125,16 +141,6 @@ export const UserProfile = ({
         <Card.Body>
           <Card.Title className="text-center">Set New Password</Card.Title>
           <Form onSubmit={handleSetNewPassword}>
-            <Form.Group controlId="formOldPassword">
-              <Form.Label>Old Password: </Form.Label>
-              <Form.Control
-                type="password"
-                aria-label="For updating put old password here"
-                value={oldPassword}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-            </Form.Group>
-
             <Form.Group controlId="formNewPassword">
               <Form.Label>Set new password: </Form.Label>
               <Form.Control
