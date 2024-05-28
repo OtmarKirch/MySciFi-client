@@ -1,18 +1,23 @@
 import PropTypes from "prop-types";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import {Link} from "react-router-dom"
 import { MovieCard } from "../movie-card/movie-card";
 
 export const MovieView = ({
-  movieData,
-  movies,
-  onMovieClick,
-  onBackButton,
+  moviesData
 }) => {
+  const {movieId} = useParams();
+
+  const movieData = moviesData.find((movie) => {
+    return (movie.id === movieId)
+  })
+  console.log(movieData)
   const altTextImage = "Movie poster of " + movieData.title
-  const similarMoviesGenre = movies.filter((movie) => {
+  const similarMoviesGenre = moviesData.filter((movie) => {
     return movie.genre === movieData.genre && movie.title != movieData.title;
   });
-  const similarMoviesDirector = movies.filter((movie) => {
+  const similarMoviesDirector = moviesData.filter((movie) => {
     return (
       movie.director === movieData.director && movie.title != movieData.title
     );
@@ -28,41 +33,39 @@ export const MovieView = ({
               <div>{movieData.description}</div>
               <div>Director: {movieData.director}</div>
               <div>Genre: {movieData.genre}</div>
+              <Link to="/">
               <Button
                 variant="link"
-                onClick={() => {
-                  onBackButton();
-                }}
               >
                 Go back
-              </Button>
+              </Button></Link>
             </Card.Text>
           </Card.Body>
         </Card>
       </Row>
       <h2>Movies in the Genre</h2>
-      <Row className="mb-4">
+      <Row className="mb-6">
         {similarMoviesGenre.map((movie) => (
           <>
-            <Col md={3}>
+            <Col md={4}>
               <MovieCard
                 key={movie.id}
                 movieData={movie}
-                onMovieClick={onMovieClick}
+                noDescription={true}
               />
             </Col>
           </>
         ))}
       </Row>
       <h2>Movies from the Director</h2>
-      <Row className="mb-4">
+      <Row className="mb-6">
         {similarMoviesDirector.map((movie) => (
           <>
-            <Col md={3}>
+            <Col md={4}>
               <MovieCard
-                key={movie._id}
+                key={movie.id}
                 movieData={movie}
-                onMovieClick={onMovieClick}
+                noDescription={true}
               />
             </Col>
           </>
@@ -74,11 +77,10 @@ export const MovieView = ({
 
 MovieView.propTypes = {
   movieData: PropTypes.shape({
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     director: PropTypes.string,
     genre: PropTypes.string,
-    img: PropTypes.string,
+    imgUrl: PropTypes.string,
     description: PropTypes.string,
-  }),
-  onBackButton: PropTypes.func.isRequired,
+  })
 };
