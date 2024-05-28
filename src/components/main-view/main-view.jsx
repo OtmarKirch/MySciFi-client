@@ -85,7 +85,11 @@ const MainView = () => {
             ):(
             <>
             <Col md={8}>
-              <MovieView moviesData={movies} />
+              <MovieView
+              user={user}
+              updateUserData={(userData)=>{setUser(userData)}}
+              moviesData={movies}
+              token={token} />
             </Col>
             </>)
           }
@@ -102,7 +106,8 @@ const MainView = () => {
                 <>
                 {movies.map((movie)=>(
                   <Col className="mb-4" key={movie.id} md={3}>
-                  <MovieCard 
+                  <MovieCard
+                  userData={user} 
                   key={movie.id}
                   movieData={movie}
                    />

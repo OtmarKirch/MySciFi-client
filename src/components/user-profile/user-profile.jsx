@@ -20,6 +20,8 @@ export const UserProfile = ({
     if (newName !== "") requestData.name = newName;
     if (newEmail !== "") requestData.email = newEmail;
 
+    console.log(JSON.stringify(requestData))
+
     //console.log(JSON.stringify(requestData))
 
     if (Object.keys(requestData).length != 0) {

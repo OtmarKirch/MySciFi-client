@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import {Link} from "react-router-dom"
 import { MovieCard } from "../movie-card/movie-card";
 
-export const MovieView = ({
-  moviesData
+export const MovieView = ({user, updateUserData,
+  moviesData, token
 }) => {
   const {movieId} = useParams();
 
@@ -13,6 +13,38 @@ export const MovieView = ({
     return (movie.id === movieId)
   })
   console.log(movieData)
+
+  const handleNewMovieAdded = (event) => {
+      event.preventDefault()
+
+      const requestData = {
+        Username: user.Username,
+        favoriteMovie: movieData.title
+      }
+
+      console.log(JSON.stringify(requestData))
+
+      fetch("https://sci-fi-app.onrender.com/users/favoritemovie", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => {
+          if (response) {
+            //localStorage.setItem("user", JSON.stringify(data));
+            //importNewUserData(data);
+            //console.log("New name: " + user.name);
+          }
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
   const altTextImage = "Movie poster of " + movieData.title
   const similarMoviesGenre = moviesData.filter((movie) => {
     return movie.genre === movieData.genre && movie.title != movieData.title;
@@ -39,6 +71,11 @@ export const MovieView = ({
               >
                 Go back
               </Button></Link>
+              <br />
+        <Button 
+        variant="primary"
+        onClick={(e)=>{handleNewMovieAdded(e)}}
+        >Add to favorite movies</Button>
             </Card.Text>
           </Card.Body>
         </Card>
