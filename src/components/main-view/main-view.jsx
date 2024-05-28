@@ -41,7 +41,14 @@ const MainView = () => {
 
   return (
     <BrowserRouter>
-    <NavigationBar />
+    <NavigationBar 
+      user={user}
+      onLoggedOut={()=>{
+        setUser(null)
+        setToken(null)
+        localStorage.clear()
+      }}
+    />
       <Row className="justify-content-md-center">
         <Routes>
           <Route
@@ -105,79 +112,6 @@ const MainView = () => {
               </>
             }
           />
- {/*          {!user ? (
-            <>
-              <Col md={5}>
-                <LoginView
-                  onLoggedIn={(user, token) => {
-                    setUser(user);
-                    setToken(token);
-                  }}
-                />
-              </Col>
-
-              <Col md={5}>
-                <SignupView />
-              </Col>
-            </>
-          ) : selectedMovie ? (
-            <>
-              <Card className="mb-3 mt-3">
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    setUser(null);
-                    setToken(null);
-                    localStorage.clear();
-                  }}
-                >
-                  Log Out
-                </Button>
-              </Card>
-              <MovieView
-                movieData={selectedMovie}
-                movies={movies}
-                onMovieClick={setSelectedMovie}
-                onBackButton={() => {
-                  setSelectedMovie(null);
-                }}
-              />
-            </>
-          ) : movies.length === 0 ? (
-            <>
-              return <div>Movie list is empty!</div>
-            </>
-          ) : (
-            <>
-              <Card className="mb-3 mt-3">
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    setUser(null);
-                    setToken(null);
-                    localStorage.clear();
-                  }}
-                >
-                  Log Out
-                </Button>
-              </Card>
-              {movies.map((movie) => {
-                return (
-                  <>
-                    <Col className="mb-4" md={3}>
-                      <MovieCard
-                        key={movie.id}
-                        movieData={movie}
-                        onMovieClick={(newSelectedMovie) => {
-                          setSelectedMovie(newSelectedMovie);
-                        }}
-                      />
-                    </Col>
-                  </>
-                );
-              })}
-            </>
-          )} */}
         </Routes>
       </Row>
     </BrowserRouter>
