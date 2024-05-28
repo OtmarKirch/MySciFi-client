@@ -27389,6 +27389,7 @@ var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 var _loginView = require("../login-view/login-view");
 var _signupView = require("../signup-view/signup-view");
+var _userProfile = require("../user-profile/user-profile");
 var _navigationBar = require("../navigation-bar/navigation-bar");
 var _reactRouterDom = require("react-router-dom");
 var _s = $RefreshSig$();
@@ -27399,7 +27400,6 @@ const MainView = ()=>{
     const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
-    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch("https://sci-fi-app.onrender.com/movies/", {
@@ -27560,6 +27560,34 @@ const MainView = ()=>{
                             fileName: "src/components/main-view/main-view.jsx",
                             lineNumber: 95,
                             columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                            path: "/user",
+                            element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Navigate), {
+                                    to: "/login",
+                                    replace: true
+                                }, void 0, false, {
+                                    fileName: "src/components/main-view/main-view.jsx",
+                                    lineNumber: 120,
+                                    columnNumber: 17
+                                }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userProfile.UserProfile), {
+                                    user: user,
+                                    onLoggedOut: ()=>{
+                                        setUser(null);
+                                        setToken(null);
+                                        localStorage.clear();
+                                    }
+                                }, void 0, false, {
+                                    fileName: "src/components/main-view/main-view.jsx",
+                                    lineNumber: 122,
+                                    columnNumber: 17
+                                }, void 0)
+                            }, void 0, false)
+                        }, void 0, false, {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 115,
+                            columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
@@ -27579,7 +27607,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "9wJBvfUyU2IigbyWC+M5y3EH9h4=");
+_s(MainView, "vrQobkEX5jhNcI69dtstaSSmWyg=");
 _c = MainView;
 exports.default = MainView;
 var _c;
@@ -27590,7 +27618,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB","react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM"}],"bwuIu":[function(require,module,exports) {
+},{"react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB","react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","react-router-dom":"9xmpe","../navigation-bar/navigation-bar":"bsPVM","../user-profile/user-profile":"m1UMa"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41347,7 +41375,6 @@ parcelHelpers.export(exports, "NavigationBar", ()=>NavigationBar);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
-var _logoutButton = require("../logout-button/logout-button");
 const NavigationBar = ({ user, onLoggedOut })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         expand: "lg",
@@ -41361,37 +41388,37 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                         children: "mySciFiApp"
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 10,
+                        lineNumber: 9,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 9,
+                    lineNumber: 8,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 12,
+                    lineNumber: 11,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
                     id: "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 13,
+                    lineNumber: 12,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-            lineNumber: 8,
+            lineNumber: 7,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 7,
+        lineNumber: 6,
         columnNumber: 5
     }, undefined);
 };
@@ -41404,42 +41431,212 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB","../logout-button/logout-button":"65OQY"}],"65OQY":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$1c9f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB"}],"m1UMa":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$4318 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$1c9f.prelude(module);
+$parcel$ReactRefreshHelpers$4318.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LogoutButton", ()=>LogoutButton);
+parcelHelpers.export(exports, "UserProfile", ()=>UserProfile);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-const LogoutButton = ({ resetUser, resetToken })=>{
-    const handleReset = ()=>{
-        resetUser(null);
-        resetToken(null);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactBootstrap = require("react-bootstrap");
+var _s = $RefreshSig$();
+const UserProfile = ({ user, onLoggedOut })=>{
+    _s();
+    const [newUsername, setNewUsername] = (0, _react.useState)("");
+    const [newName, setNewName] = (0, _react.useState)("");
+    const [newEmail, setNewEmail] = (0, _react.useState)("");
+    const [newPassword, setNewPassword] = (0, _react.useState)("");
+    const [newBirthday, setNewBirthday] = (0, _react.useState)("");
+    const handleSubmit = (event)=>{
+        event.preventDefault();
+        alert(event.value);
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-            onClick: ()=>handleReset(),
-            children: "Log Out"
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                        className: "text-center",
+                        children: "User Profile"
+                    }, void 0, false, {
+                        fileName: "src/components/user-profile/user-profile.jsx",
+                        lineNumber: 20,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                        onSubmit: handleSubmit,
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                controlId: "formUsername",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                        children: [
+                                            "Username: ",
+                                            user.Username
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 23,
+                                        columnNumber: 15
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        type: "text",
+                                        "aria-label": "For updating put new username here",
+                                        value: newUsername,
+                                        onChange: (e)=>{
+                                            setNewUsername(e.target.value);
+                                        },
+                                        minLength: 9
+                                    }, void 0, false, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 24,
+                                        columnNumber: 15
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/user-profile/user-profile.jsx",
+                                lineNumber: 22,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                controlId: "formName",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                        children: [
+                                            "Name: ",
+                                            user.name
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 35,
+                                        columnNumber: 15
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        type: "text",
+                                        "aria-label": "For updating put new name here",
+                                        value: newName,
+                                        onChange: (e)=>setNewName(e.target.value)
+                                    }, void 0, false, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 36,
+                                        columnNumber: 15
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/user-profile/user-profile.jsx",
+                                lineNumber: 34,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                controlId: "formEmail",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                        children: [
+                                            "Email: ",
+                                            user.email
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 45,
+                                        columnNumber: 15
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        type: "email",
+                                        "aria-label": "For updating put new email here",
+                                        value: newEmail,
+                                        onChange: (e)=>setNewEmail(e.target.value)
+                                    }, void 0, false, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 46,
+                                        columnNumber: 15
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/user-profile/user-profile.jsx",
+                                lineNumber: 44,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                controlId: "formPassword",
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                        children: "Set new password: "
+                                    }, void 0, false, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 55,
+                                        columnNumber: 15
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                        type: "password",
+                                        "aria-label": "For updating put new password here",
+                                        value: newPassword,
+                                        onChange: (e)=>setNewPassword(e.target.value)
+                                    }, void 0, false, {
+                                        fileName: "src/components/user-profile/user-profile.jsx",
+                                        lineNumber: 56,
+                                        columnNumber: 15
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/user-profile/user-profile.jsx",
+                                lineNumber: 54,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                type: "submit",
+                                className: "mt-3 w-100",
+                                variant: "primary",
+                                children: "Update"
+                            }, void 0, false, {
+                                fileName: "src/components/user-profile/user-profile.jsx",
+                                lineNumber: 64,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/user-profile/user-profile.jsx",
+                        lineNumber: 21,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                        onClick: ()=>{
+                            onLoggedOut();
+                        },
+                        children: "Log out"
+                    }, void 0, false, {
+                        fileName: "src/components/user-profile/user-profile.jsx",
+                        lineNumber: 68,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/user-profile/user-profile.jsx",
+                lineNumber: 19,
+                columnNumber: 9
+            }, undefined)
         }, void 0, false, {
-            fileName: "src/components/logout-button/logout-button.jsx",
-            lineNumber: 9,
-            columnNumber: 9
+            fileName: "src/components/user-profile/user-profile.jsx",
+            lineNumber: 18,
+            columnNumber: 7
         }, undefined)
     }, void 0, false);
 };
-_c = LogoutButton;
+_s(UserProfile, "mrb0hAhajusoplzqGsQAQxVPh4U=");
+_c = UserProfile;
 var _c;
-$RefreshReg$(_c, "LogoutButton");
+$RefreshReg$(_c, "UserProfile");
 
-  $parcel$ReactRefreshHelpers$1c9f.postlude(module);
+  $parcel$ReactRefreshHelpers$4318.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB"}]},["8GULu","d8fTC","d8Dch"], "d8Dch", "parcelRequire3ab7")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"cu90A","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9RNYB","react-bootstrap":"3AD9A","react":"21dqq"}]},["8GULu","d8fTC","d8Dch"], "d8Dch", "parcelRequire3ab7")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

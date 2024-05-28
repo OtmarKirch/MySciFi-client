@@ -1,6 +1,5 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { LogoutButton } from "../logout-button/logout-button";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
