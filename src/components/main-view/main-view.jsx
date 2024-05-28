@@ -121,6 +121,8 @@ const MainView = () => {
               ):(
                 <UserProfile
                 user={user}
+                token={token}
+                importNewUserData={(user)=>{setUser(user)}}
                 onLoggedOut={()=>{
                   setUser(null)
                   setToken(null)

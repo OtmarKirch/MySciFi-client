@@ -27573,6 +27573,10 @@ const MainView = ()=>{
                                     columnNumber: 17
                                 }, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _userProfile.UserProfile), {
                                     user: user,
+                                    token: token,
+                                    importNewUserData: (user)=>{
+                                        setUser(user);
+                                    },
                                     onLoggedOut: ()=>{
                                         setUser(null);
                                         setToken(null);
@@ -41446,188 +41450,323 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _s = $RefreshSig$();
-const UserProfile = ({ user, onLoggedOut })=>{
+const UserProfile = ({ user, token, onLoggedOut, importNewUserData })=>{
     _s();
     const [newUsername, setNewUsername] = (0, _react.useState)("");
     const [newName, setNewName] = (0, _react.useState)("");
     const [newEmail, setNewEmail] = (0, _react.useState)("");
+    const [oldPassword, setOldPassword] = (0, _react.useState)("");
     const [newPassword, setNewPassword] = (0, _react.useState)("");
-    const [newBirthday, setNewBirthday] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
-        alert(event.value);
+        const requestData = {};
+        if (newUsername !== "") requestData.Username = newUsername;
+        if (newName !== "") requestData.name = newName;
+        if (newEmail !== "") requestData.email = newEmail;
+        //console.log(JSON.stringify(requestData))
+        if (Object.keys(requestData).length != 0) fetch("https://sci-fi-app.onrender.com/users/newdetails", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(requestData)
+        }).then((response)=>response.json()).then((data)=>{
+            if (data) {
+                localStorage.setItem("user", JSON.stringify(data));
+                importNewUserData(data);
+                console.log("New name: " + user.name);
+            }
+            console.log("Success:", data);
+        }).catch((error)=>{
+            console.error("Error:", error);
+        });
+    };
+    const handleSetNewPassword = (event)=>{
+        event.preventDefault();
+        alert(oldPassword + newPassword);
+    };
+    const handleDeleteUser = (event)=>{
+        event.preventDefault();
+        const requestData = {
+            Username: user.Username
+        };
+        const confirmed = window.confirm("Are you sure you want to delete your account? This is irreversible!");
+        if (confirmed) {
+            onLoggedOut();
+            fetch("https://sci-fi-app.onrender.com/users/delete", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(requestData)
+            }).then(console.log("Account deleted."));
+        }
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
-                        className: "text-center",
-                        children: "User Profile"
-                    }, void 0, false, {
-                        fileName: "src/components/user-profile/user-profile.jsx",
-                        lineNumber: 20,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
-                        onSubmit: handleSubmit,
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                controlId: "formUsername",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                        children: [
-                                            "Username: ",
-                                            user.Username
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 23,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                        type: "text",
-                                        "aria-label": "For updating put new username here",
-                                        value: newUsername,
-                                        onChange: (e)=>{
-                                            setNewUsername(e.target.value);
-                                        },
-                                        minLength: 9
-                                    }, void 0, false, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 24,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/user-profile/user-profile.jsx",
-                                lineNumber: 22,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                controlId: "formName",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                        children: [
-                                            "Name: ",
-                                            user.name
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 35,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                        type: "text",
-                                        "aria-label": "For updating put new name here",
-                                        value: newName,
-                                        onChange: (e)=>setNewName(e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 36,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/user-profile/user-profile.jsx",
-                                lineNumber: 34,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                controlId: "formEmail",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                        children: [
-                                            "Email: ",
-                                            user.email
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 45,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                        type: "email",
-                                        "aria-label": "For updating put new email here",
-                                        value: newEmail,
-                                        onChange: (e)=>setNewEmail(e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 46,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/user-profile/user-profile.jsx",
-                                lineNumber: 44,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                                controlId: "formPassword",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                        children: "Set new password: "
-                                    }, void 0, false, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 55,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                        type: "password",
-                                        "aria-label": "For updating put new password here",
-                                        value: newPassword,
-                                        onChange: (e)=>setNewPassword(e.target.value)
-                                    }, void 0, false, {
-                                        fileName: "src/components/user-profile/user-profile.jsx",
-                                        lineNumber: 56,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/user-profile/user-profile.jsx",
-                                lineNumber: 54,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                type: "submit",
-                                className: "mt-3 w-100",
-                                variant: "primary",
-                                children: "Update"
-                            }, void 0, false, {
-                                fileName: "src/components/user-profile/user-profile.jsx",
-                                lineNumber: 64,
-                                columnNumber: 13
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/user-profile/user-profile.jsx",
-                        lineNumber: 21,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                        onClick: ()=>{
-                            onLoggedOut();
-                        },
-                        children: "Log out"
-                    }, void 0, false, {
-                        fileName: "src/components/user-profile/user-profile.jsx",
-                        lineNumber: 68,
-                        columnNumber: 11
-                    }, undefined)
-                ]
-            }, void 0, true, {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                    className: "mb-1",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                            className: "text-center",
+                            children: "User Profile"
+                        }, void 0, false, {
+                            fileName: "src/components/user-profile/user-profile.jsx",
+                            lineNumber: 81,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Text, {
+                            children: "For updating your details, fill out what you wish to update."
+                        }, void 0, false, {
+                            fileName: "src/components/user-profile/user-profile.jsx",
+                            lineNumber: 82,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                            onSubmit: handleSubmit,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                    controlId: "formUsername",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                            children: [
+                                                "Username: ",
+                                                user.Username
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 87,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                            type: "text",
+                                            "aria-label": "For updating put new username here",
+                                            value: newUsername,
+                                            onChange: (e)=>{
+                                                setNewUsername(e.target.value);
+                                            },
+                                            minLength: 5
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 88,
+                                            columnNumber: 15
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 86,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                    controlId: "formName",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                            children: [
+                                                "Name: ",
+                                                user.name
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 99,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                            type: "text",
+                                            "aria-label": "For updating put new name here",
+                                            value: newName,
+                                            onChange: (e)=>setNewName(e.target.value)
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 100,
+                                            columnNumber: 15
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 98,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                    controlId: "formEmail",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                            children: [
+                                                "Email: ",
+                                                user.email
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 109,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                            type: "email",
+                                            "aria-label": "For updating put new email here",
+                                            value: newEmail,
+                                            onChange: (e)=>setNewEmail(e.target.value)
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 110,
+                                            columnNumber: 15
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 108,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    type: "submit",
+                                    className: "mt-3 w-100",
+                                    variant: "primary",
+                                    children: "Update"
+                                }, void 0, false, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 118,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/user-profile/user-profile.jsx",
+                            lineNumber: 85,
+                            columnNumber: 11
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/user-profile/user-profile.jsx",
+                    lineNumber: 80,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
                 fileName: "src/components/user-profile/user-profile.jsx",
-                lineNumber: 19,
-                columnNumber: 9
+                lineNumber: 79,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card), {
+                className: "mt-2 mb-2",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Body, {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Card).Title, {
+                            className: "text-center",
+                            children: "Set New Password"
+                        }, void 0, false, {
+                            fileName: "src/components/user-profile/user-profile.jsx",
+                            lineNumber: 126,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                            onSubmit: handleSetNewPassword,
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                    controlId: "formOldPassword",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                            children: "Old Password: "
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 129,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                            type: "password",
+                                            "aria-label": "For updating put old password here",
+                                            value: oldPassword,
+                                            onChange: (e)=>setOldPassword(e.target.value)
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 130,
+                                            columnNumber: 15
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 128,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
+                                    controlId: "formNewPassword",
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
+                                            children: "Set new password: "
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 139,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
+                                            type: "password",
+                                            "aria-label": "For updating put new password here",
+                                            value: newPassword,
+                                            onChange: (e)=>setNewPassword(e.target.value)
+                                        }, void 0, false, {
+                                            fileName: "src/components/user-profile/user-profile.jsx",
+                                            lineNumber: 140,
+                                            columnNumber: 15
+                                        }, undefined)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 138,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                    type: "submit",
+                                    className: "mt-3 w-100",
+                                    variant: "primary",
+                                    children: "Set New Password"
+                                }, void 0, false, {
+                                    fileName: "src/components/user-profile/user-profile.jsx",
+                                    lineNumber: 147,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/user-profile/user-profile.jsx",
+                            lineNumber: 127,
+                            columnNumber: 11
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/user-profile/user-profile.jsx",
+                    lineNumber: 125,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/user-profile/user-profile.jsx",
+                lineNumber: 124,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                className: "col-6 m-3",
+                variant: "primary",
+                onClick: ()=>{
+                    onLoggedOut();
+                },
+                children: "Log out"
+            }, void 0, false, {
+                fileName: "src/components/user-profile/user-profile.jsx",
+                lineNumber: 153,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                className: "col-6 m-2",
+                variant: "danger",
+                onClick: (e)=>{
+                    handleDeleteUser(e);
+                },
+                children: "Delete profile"
+            }, void 0, false, {
+                fileName: "src/components/user-profile/user-profile.jsx",
+                lineNumber: 162,
+                columnNumber: 7
             }, undefined)
-        }, void 0, false, {
-            fileName: "src/components/user-profile/user-profile.jsx",
-            lineNumber: 18,
-            columnNumber: 7
-        }, undefined)
-    }, void 0, false);
+        ]
+    }, void 0, true);
 };
-_s(UserProfile, "mrb0hAhajusoplzqGsQAQxVPh4U=");
+_s(UserProfile, "j1365XRLJnTeFtcdXHMGzqIBaGc=");
 _c = UserProfile;
 var _c;
 $RefreshReg$(_c, "UserProfile");

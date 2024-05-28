@@ -1,23 +1,87 @@
 import React, { useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 
-export const UserProfile = ({ user, onLoggedOut }) => {
+export const UserProfile = ({
+  user,
+  token,
+  onLoggedOut,
+  importNewUserData,
+}) => {
   const [newUsername, setNewUsername] = useState("");
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [newBirthday, setNewBirthday] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(event.value);
+
+    const requestData = {};
+    if (newUsername !== "") requestData.Username = newUsername;
+    if (newName !== "") requestData.name = newName;
+    if (newEmail !== "") requestData.email = newEmail;
+
+    //console.log(JSON.stringify(requestData))
+
+    if (Object.keys(requestData).length != 0) {
+      fetch("https://sci-fi-app.onrender.com/users/newdetails", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data) {
+            localStorage.setItem("user", JSON.stringify(data));
+            importNewUserData(data);
+            console.log("New name: " + user.name);
+          }
+          console.log("Success:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  };
+
+  const handleSetNewPassword = (event) => {
+    event.preventDefault();
+    alert(oldPassword + newPassword);
+  };
+
+  const handleDeleteUser = (event) => {
+    event.preventDefault();
+    const requestData = { Username: user.Username };
+
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account? This is irreversible!"
+    );
+
+    if (confirmed) {
+      onLoggedOut();
+
+      fetch("https://sci-fi-app.onrender.com/users/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(requestData),
+      }).then(console.log("Account deleted."));
+    }
   };
 
   return (
     <>
       <Card>
-        <Card.Body>
+        <Card.Body className="mb-1">
           <Card.Title className="text-center">User Profile</Card.Title>
+          <Card.Text>
+            For updating your details, fill out what you wish to update.
+          </Card.Text>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formUsername">
               <Form.Label>Username: {user.Username}</Form.Label>
@@ -28,7 +92,7 @@ export const UserProfile = ({ user, onLoggedOut }) => {
                 onChange={(e) => {
                   setNewUsername(e.target.value);
                 }}
-                minLength={9}
+                minLength={5}
               />
             </Form.Group>
             <Form.Group controlId="formName">
@@ -51,7 +115,27 @@ export const UserProfile = ({ user, onLoggedOut }) => {
               />
             </Form.Group>
 
-            <Form.Group controlId="formPassword">
+            <Button type="submit" className="mt-3 w-100" variant="primary">
+              Update
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+      <Card className="mt-2 mb-2">
+        <Card.Body>
+          <Card.Title className="text-center">Set New Password</Card.Title>
+          <Form onSubmit={handleSetNewPassword}>
+            <Form.Group controlId="formOldPassword">
+              <Form.Label>Old Password: </Form.Label>
+              <Form.Control
+                type="password"
+                aria-label="For updating put old password here"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formNewPassword">
               <Form.Label>Set new password: </Form.Label>
               <Form.Control
                 type="password"
@@ -60,20 +144,30 @@ export const UserProfile = ({ user, onLoggedOut }) => {
                 onChange={(e) => setNewPassword(e.target.value)}
               />
             </Form.Group>
-
             <Button type="submit" className="mt-3 w-100" variant="primary">
-              Update
+              Set New Password
             </Button>
           </Form>
-          <Button
-            onClick={() => {
-              onLoggedOut();
-            }}
-          >
-            Log out
-          </Button>
         </Card.Body>
       </Card>
+      <Button
+        className="col-6 m-3"
+        variant="primary"
+        onClick={() => {
+          onLoggedOut();
+        }}
+      >
+        Log out
+      </Button>
+      <Button
+        className="col-6 m-2"
+        variant="danger"
+        onClick={(e) => {
+          handleDeleteUser(e);
+        }}
+      >
+        Delete profile
+      </Button>
     </>
   );
 };
