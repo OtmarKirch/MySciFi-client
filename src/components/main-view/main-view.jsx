@@ -7,6 +7,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { UserProfile } from "../user-profile/user-profile";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { FavoriteMovies } from "../favorite-movies/favorite-movies";
 
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -35,6 +36,7 @@ const MainView = () => {
           };
         });
         setMovies(movieList);
+        
       })
       .catch((error) => console.error("Error:", error));
   }, [token]);
@@ -137,6 +139,26 @@ const MainView = () => {
               </>
             }
           ></Route>
+          <Route
+          path="/favoriteMovies"
+          element={
+            <>
+            {!user ? (
+            <Navigate to="/login" replace />
+            ):(
+              <>
+                  <FavoriteMovies
+                  userData={user}
+                  setUserData={setUser}
+                  moviesData={movies}
+                   />
+              </>
+            )}
+            </>
+          }
+          >
+
+          </Route>
         </Routes>
       </Row>
     </BrowserRouter>

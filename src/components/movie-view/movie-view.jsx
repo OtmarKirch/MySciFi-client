@@ -12,20 +12,25 @@ export const MovieView = ({user, updateUserData,
   const movieData = moviesData.find((movie) => {
     return (movie.id === movieId)
   })
-  console.log(movieData)
+  
 
-  const handleNewMovieAdded = (event) => {
+  const handleFavoriteMovie = (event, addDelete) => {
       event.preventDefault()
-
       const requestData = {
         Username: user.Username,
         favoriteMovie: movieData.title
       }
 
       console.log(JSON.stringify(requestData))
+      let requestMethod = ""
+      if(addDelete === "add"){
+        requestMethod = "POST"
+      }else if(addDelete == "delete"){
+        requestMethod = "DELETE"
+      }
 
-      fetch("https://sci-fi-app.onrender.com/users/favoritemovie", {
-        method: "POST",
+      fetch("https://sci-fi-app.onrender.com/users/favoritemovie/", {
+        method: requestMethod,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -43,6 +48,7 @@ export const MovieView = ({user, updateUserData,
         .catch((error) => {
           console.error("Error:", error);
         });
+          
     }
 
   const altTextImage = "Movie poster of " + movieData.title
@@ -74,8 +80,12 @@ export const MovieView = ({user, updateUserData,
               <br />
         <Button 
         variant="primary"
-        onClick={(e)=>{handleNewMovieAdded(e)}}
+        onClick={(e)=>{handleFavoriteMovie(e, "add")}}
         >Add to favorite movies</Button>
+        <Button 
+        variant="primary"
+        onClick={(e)=>{handleFavoriteMovie(e, "delete")}}
+        >Delete from favorite movies</Button>
             </Card.Text>
           </Card.Body>
         </Card>
