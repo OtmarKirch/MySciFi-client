@@ -22,7 +22,6 @@ export const UserProfile = ({
 
     console.log(JSON.stringify(requestData))
 
-    //console.log(JSON.stringify(requestData))
 
     if (Object.keys(requestData).length != 0) {
       fetch("https://sci-fi-app.onrender.com/users/newdetails", {

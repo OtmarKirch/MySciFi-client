@@ -84,6 +84,7 @@ export const MovieView = ({user, updateUserData,
         >Add to favorite movies</Button>
         <Button 
         variant="primary"
+        className="mt-2"
         onClick={(e)=>{handleFavoriteMovie(e, "delete")}}
         >Delete from favorite movies</Button>
             </Card.Text>
