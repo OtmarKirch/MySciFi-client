@@ -37,7 +37,6 @@ export const UserProfile = ({
           if (data) {
             localStorage.setItem("user", JSON.stringify(data));
             importNewUserData(data);
-            console.log("New name: " + user.name);
           }
           console.log("Success:", data);
         })
@@ -157,6 +156,7 @@ export const UserProfile = ({
           </Form>
         </Card.Body>
       </Card>
+      
       <Button
         className="col-6 m-3"
         variant="primary"

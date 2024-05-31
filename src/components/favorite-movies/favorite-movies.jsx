@@ -24,10 +24,6 @@ export const FavoriteMovies = ({
           <MovieCard userData={userData} key={movie.id} movieData={movie} />
         </Col>
       ))}
-      {/* {user.favoriteMovies.map = (movie)=>{
-            <MovieCard
-             />
-        }} */}
     </>
   );
 };

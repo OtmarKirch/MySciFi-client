@@ -1,57 +1,41 @@
 import PropTypes from "prop-types";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
-export const MovieView = ({user, updateUserData,
-  moviesData, token
-}) => {
-  const {movieId} = useParams();
+export const MovieView = ({ user, updateUserData, moviesData, token }) => {
+  const { movieId } = useParams();
 
   const movieData = moviesData.find((movie) => {
-    return (movie.id === movieId)
-  })
-  
+    return movie.id === movieId;
+  });
 
   const handleFavoriteMovie = (event, addDelete) => {
-      event.preventDefault()
-      const requestData = {
-        Username: user.Username,
-        favoriteMovie: movieData.title
-      }
+    event.preventDefault();
+    const requestData = { favoriteMovie: movieData.title };
+    let requestMethod = addDelete === "add" ? "POST" : "DELETE";
 
-      console.log(JSON.stringify(requestData))
-      let requestMethod = ""
-      if(addDelete === "add"){
-        requestMethod = "POST"
-      }else if(addDelete == "delete"){
-        requestMethod = "DELETE"
-      }
-
-      fetch("https://sci-fi-app.onrender.com/users/favoritemovie/", {
-        method: requestMethod,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(requestData),
+    fetch(`https://sci-fi-app.onrender.com/users/favoritemovie`, {
+      method: requestMethod,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          localStorage.setItem("user", JSON.stringify(data));
+          updateUserData(data);
+        }
+        console.log("Success:", data);
       })
-        .then((response) => {
-          if (response) {
-            //localStorage.setItem("user", JSON.stringify(data));
-            //importNewUserData(data);
-            //console.log("New name: " + user.name);
-          }
-          console.log(response);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-          
-    }
+      .catch((error) => console.error("Error:", error));
+  };
 
-  const altTextImage = "Movie poster of " + movieData.title
+  const altTextImage = "Movie poster of " + movieData.title;
   const similarMoviesGenre = moviesData.filter((movie) => {
     return movie.genre === movieData.genre && movie.title != movieData.title;
   });
@@ -64,7 +48,11 @@ export const MovieView = ({user, updateUserData,
     <div>
       <Row className="mb-4">
         <Card>
-          <Card.Img alt={altTextImage} src={movieData.imgUrl} className="w-100" />
+          <Card.Img
+            alt={altTextImage}
+            src={movieData.imgUrl}
+            className="w-100"
+          />
           <Card.Body>
             <Card.Title>{movieData.title}</Card.Title>
             <Card.Text>
@@ -72,21 +60,26 @@ export const MovieView = ({user, updateUserData,
               <div>Director: {movieData.director}</div>
               <div>Genre: {movieData.genre}</div>
               <Link to="/">
-              <Button
-                variant="link"
-              >
-                Go back
-              </Button></Link>
+                <Button variant="link">Go back</Button>
+              </Link>
               <br />
-        <Button 
-        variant="primary"
-        onClick={(e)=>{handleFavoriteMovie(e, "add")}}
-        >Add to favorite movies</Button>
-        <Button 
-        variant="primary"
-        className="mt-2"
-        onClick={(e)=>{handleFavoriteMovie(e, "delete")}}
-        >Delete from favorite movies</Button>
+              <Button
+                variant="primary"
+                onClick={(e) => {
+                  handleFavoriteMovie(e, "add");
+                }}
+              >
+                Add to favorite movies
+              </Button>
+              <Button
+                variant="primary"
+                className="mt-2"
+                onClick={(e) => {
+                  handleFavoriteMovie(e, "delete");
+                }}
+              >
+                Delete from favorite movies
+              </Button>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -130,5 +123,5 @@ MovieView.propTypes = {
     genre: PropTypes.string,
     imgUrl: PropTypes.string,
     description: PropTypes.string,
-  })
+  }),
 };
