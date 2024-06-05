@@ -95,7 +95,7 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
       </Row>
       <h2 className="mt-3">The Genre</h2>
       {movieData.genreText}
-      <h3 className="mt-3">More movies in the genre</h3>
+      <h3 className="mt-3">More movies in the Genre</h3>
       <Row className="mb-6">
         {similarMoviesGenre.map((movie) => (
           <>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className="bg-body-secondary mb-2">
       <Container>
         <Link to="/">
           <Navbar.Brand href="">mySciFiApp</Navbar.Brand>
