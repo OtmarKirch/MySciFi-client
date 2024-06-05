@@ -3,8 +3,8 @@
   "source": "src/index.html",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html",
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Otmar",
@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.12.0",
+    "parcel": "^2.12.0",
+    "parcel-bundler": "^1.12.5",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10"
   }

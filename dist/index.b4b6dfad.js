@@ -27408,8 +27408,8 @@ const MainView = ()=>{
             headers: {
                 Authorization: `Bearer ${token}`
             }
-        }).then((response)=>movieData = response.json()).then((movieData1)=>{
-            const movieList = movieData1.map((doc)=>{
+        }).then((response)=>response.json()).then((movieData)=>{
+            const movieList = movieData.map((doc)=>{
                 return {
                     id: doc._id,
                     title: doc.title,
