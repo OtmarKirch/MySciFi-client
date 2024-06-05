@@ -9,6 +9,9 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FavoriteMovies } from "../favorite-movies/favorite-movies";
 
+//TODO remake navigation bar
+//TODO search feature for movies in the main view
+
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
@@ -31,7 +34,9 @@ const MainView = () => {
             id: doc._id,
             title: doc.title,
             director: doc.director.name,
+            directorText: doc.director.description,
             genre: doc.genre.name,
+            genreText: doc.genre.description,
             imgUrl: doc.imgUrl,
             description: doc.description,
           };

@@ -45,14 +45,19 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
       movie.director === movieData.director && movie.title != movieData.title
     );
   });
+
+  let alreadyAdded = ((favoriteMovie)=>{
+    if(favoriteMovie.includes(movieData.id)){return true}else{return false}
+  })(user.favoriteMovies)
+
   return (
     <div>
-      <Row className="mb-4">
-        <Card>
+      <Row>
+        <Card className="h-100">
           <Card.Img
             alt={altTextImage}
             src={movieData.imgUrl}
-            className="w-100"
+            variant="top"
           />
           <Card.Body>
             <Card.Title>{movieData.title}</Card.Title>
@@ -65,6 +70,7 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
               </Link>
               <br />
               <Button
+                disabled={alreadyAdded}
                 variant="primary"
                 onClick={(e) => {
                   handleFavoriteMovie(e, "add");
@@ -72,7 +78,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
               >
                 Add to favorite movies
               </Button>
+              <br/>
               <Button
+                disabled={!alreadyAdded}
                 variant="primary"
                 className="mt-2"
                 onClick={(e) => {
@@ -85,7 +93,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
           </Card.Body>
         </Card>
       </Row>
-      <h2>Movies in the Genre</h2>
+      <h2 className="mt-3">The Genre</h2>
+      {movieData.genreText}
+      <h3 className="mt-3">More movies in the genre</h3>
       <Row className="mb-6">
         {similarMoviesGenre.map((movie) => (
           <>
@@ -99,7 +109,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
           </>
         ))}
       </Row>
-      <h2>Movies from the Director</h2>
+      <h2 className="mt-3">The Director</h2>
+      {movieData.directorText}
+      <h3 className="mt-3">More movies from the Director</h3>
       <Row className="mb-6">
         {similarMoviesDirector.map((movie) => (
           <>
@@ -121,7 +133,9 @@ MovieView.propTypes = {
   movieData: PropTypes.shape({
     title: PropTypes.string,
     director: PropTypes.string,
+    directorText: PropTypes.string,
     genre: PropTypes.string,
+    genreText: PropTypes.string,
     imgUrl: PropTypes.string,
     description: PropTypes.string,
   }),
