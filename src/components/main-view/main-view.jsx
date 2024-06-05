@@ -24,7 +24,7 @@ const MainView = () => {
     fetch(dbUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then((response) => (movieData = response.json()))
+      .then((response) => response.json())
       .then((movieData) => {
         const movieList = movieData.map((doc) => {
           return {
