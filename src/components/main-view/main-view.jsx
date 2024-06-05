@@ -20,7 +20,8 @@ const MainView = () => {
     if (!token) {
       return;
     }
-    fetch("https://sci-fi-app.onrender.com/movies/", {
+    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/movies"
+    fetch(dbUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => (movieData = response.json()))

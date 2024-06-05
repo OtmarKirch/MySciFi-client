@@ -16,7 +16,8 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
     const requestData = { favoriteMovie: movieData.title };
     let requestMethod = addDelete === "add" ? "POST" : "DELETE";
 
-    fetch(`https://sci-fi-app.onrender.com/users/favoritemovie`, {
+    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/favoritemovie"
+    fetch(dbUrl, {
       method: requestMethod,
       headers: {
         "Content-Type": "application/json",

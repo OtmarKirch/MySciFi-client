@@ -10,7 +10,8 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
     const data = { Username: username, Password: password };
   
-    fetch("https://sci-fi-app.onrender.com/login", {
+    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/login"
+    fetch(dbUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
