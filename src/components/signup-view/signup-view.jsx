@@ -20,7 +20,8 @@ export const SignupView = () => {
     }
     console.log(data)
 
-    fetch("https://sci-fi-app.onrender.com/users/register", {
+    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/register"
+    fetch(dbUrl, {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
