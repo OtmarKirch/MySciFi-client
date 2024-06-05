@@ -18,6 +18,7 @@ const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [sortBy, setSortBy] = useState("genre");
 
   useEffect(() => {
     if (!token) {
@@ -41,11 +42,57 @@ const MainView = () => {
             description: doc.description,
           };
         });
-        setMovies(movieList);
+        let sortedMovies=[];
+        if(sortBy){
+          switch(sortBy){
+            case "title":
+              let titles = movieList.map((movie)=>movie.title);
+              titles.sort();
+              titles.forEach((title)=>{
+                movieList.forEach((movie)=>{
+                  if(movie.title === title){
+                    sortedMovies.push(movie);
+                  }
+                })
+              })
+              setMovies(sortedMovies);
+              break;
+            case "director":
+              let directors = movieList.map((movie)=>movie.director);
+              let directorsSet = new Set(directors);
+              let directorsArray = Array.from(directorsSet).sort();
+              directorsArray.forEach((director)=>{
+                movieList.forEach((movie)=>{
+                  if(movie.director === director){
+                    sortedMovies.push(movie);
+                  }
+                })
+              })
+              setMovies(sortedMovies);
+              break;
+            case "genre":
+              let genres = movieList.map((movie)=>movie.genre);
+              let genresSet = new Set(genres);
+              let genresArray = Array.from(genresSet).sort();
+              console.log(genresArray);
+              genresArray.forEach((genre)=>{
+                movieList.forEach((movie)=>{
+                  if(movie.genre === genre){
+                    sortedMovies.push(movie);
+                  }
+                })
+              })
+              setMovies(sortedMovies);
+              break;
+            default:
+              setMovies(movieList);
+          }
+        }else{setMovies(movieList);}
+        
         
       })
       .catch((error) => console.error("Error:", error));
-  }, [token]);
+  }, [token, sortBy]);
 
   return (
     <BrowserRouter>
