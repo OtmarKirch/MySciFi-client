@@ -13187,4 +13187,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+.navbackground {
+  border-radius: 6px;
+  background-color: #483d8b !important;
+}
+
+.underline {
+  border-bottom: 1px solid #000;
+  width: 100%;
+}
 /*# sourceMappingURL=index.2212206d.css.map */

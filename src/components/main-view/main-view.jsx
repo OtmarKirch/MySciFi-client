@@ -8,6 +8,7 @@ import { UserProfile } from "../user-profile/user-profile";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FavoriteMovies } from "../favorite-movies/favorite-movies";
+import "./main-view.scss";
 
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -18,9 +19,11 @@ const MainView = () => {
   const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
+    //fetch data only if user is logged in and token is available
     if (!token) {
       return;
     }
+    //fetch movies from database
     const dbUrl =
       "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/movies";
     fetch(dbUrl, {
@@ -28,6 +31,7 @@ const MainView = () => {
     })
       .then((response) => response.json())
       .then((movieData) => {
+        //convert data to format that can be used by components
         const movieList = movieData.map((doc) => {
           return {
             id: doc._id,
@@ -40,11 +44,13 @@ const MainView = () => {
             description: doc.description,
           };
         });
+        //set state of movies with fetched data
         setMovies(movieList);
       })
       .catch((error) => console.error("Error:", error));
   }, [token]);
 
+  //set up all routes of app and pass props to components
   return (
     <BrowserRouter>
       <NavigationBar
@@ -113,6 +119,7 @@ const MainView = () => {
                 ) : (
                   <>
                     <>
+                    <Col>
                       sort by:
                       <Button
                         className="m-1"
@@ -135,6 +142,7 @@ const MainView = () => {
                       >
                         None
                       </Button>
+                    </Col>
                     </>
                     <>
                       {movies
@@ -153,9 +161,9 @@ const MainView = () => {
                             {(i === 0 ||
                               (i > 0 &&
                                 movies[i - 1][sortBy] !== movie[sortBy])) && (
-                              <h3>{movie[sortBy]}</h3>
+                              <h3 className="mt-2 underline">{movie[sortBy]}</h3>
                             )}
-                            <Col className="mb-4" md={3}>
+                            <Col className="mb-4 mt-2" md={3}>
                               <MovieCard userData={user} movieData={movie} />
                             </Col>
                           </React.Fragment>
@@ -199,7 +207,6 @@ const MainView = () => {
                   <>
                     <FavoriteMovies
                       userData={user}
-                      setUserData={setUser}
                       moviesData={movies}
                     />
                   </>

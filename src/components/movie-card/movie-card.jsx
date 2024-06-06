@@ -3,10 +3,13 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const MovieCard = (props) => {
+  // Shorten the description of the movie to 100 characters
   const shortDescription =
     props.movieData.description.substring(0, 100) + "...";
   const altTextImage = "Movie poster of " + props.movieData.title;
   const selectedMovieUrl = "/movies/" + encodeURIComponent(props.movieData.id);
+
+  // Return a card with the movie data
   return (
     <>
       <Card className="h-100">
@@ -33,4 +36,5 @@ MovieCard.propTypes = {
   movieData: PropTypes.shape({
     title: PropTypes.string.isRequired,
   }).isRequired,
+  noDescription: PropTypes.bool,
 };

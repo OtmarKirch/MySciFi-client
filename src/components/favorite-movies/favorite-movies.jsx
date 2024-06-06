@@ -1,14 +1,13 @@
 import { MovieCard } from "../movie-card/movie-card";
 import { Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export const FavoriteMovies = ({
   userData,
-  moviesData,
-  updateUserData,
-  token,
+  moviesData
 }) => {
+  // Filter the moviesData array to only include the movies that are in the favoriteMovies array
   const favoriteMovies = [];
-
   userData.favoriteMovies.forEach((movieId) => {
     const favoriteMovie = moviesData.find((movie) => {
       return movie.id === movieId;
@@ -17,6 +16,7 @@ export const FavoriteMovies = ({
     favoriteMovies.push(favoriteMovie);}
   });
 
+  // Map over the favoriteMovies array and render a MovieCard component for each movie
   return (
     <>
       {favoriteMovies.map((movie) => (
@@ -26,4 +26,12 @@ export const FavoriteMovies = ({
       ))}
     </>
   );
+};
+
+// The propTypes for the FavoriteMovies component
+FavoriteMovies.propTypes = {
+  userData: PropTypes.shape({
+    favoriteMovies: PropTypes.array.isRequired,
+  }).isRequired,
+  moviesData: PropTypes.array.isRequired,
 };

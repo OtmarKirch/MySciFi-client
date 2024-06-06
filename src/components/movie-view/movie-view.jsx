@@ -5,17 +5,19 @@ import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
 export const MovieView = ({ user, updateUserData, moviesData, token }) => {
+  // Get the movieId from the URL and find the movie data
   const { movieId } = useParams();
-
   const movieData = moviesData.find((movie) => {
     return movie.id === movieId;
   });
 
+  // Handle the favorite movie buttons add and delete
   const handleFavoriteMovie = (event, addDelete) => {
     event.preventDefault();
     const requestData = { favoriteMovie: movieData.title };
     let requestMethod = addDelete === "add" ? "POST" : "DELETE";
 
+    // Send a request to the server to add or delete the selected movie from the favorite movies of the user
     const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/favoritemovie"
     fetch(dbUrl, {
       method: requestMethod,
@@ -37,6 +39,7 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
   };
 
   const altTextImage = "Movie poster of " + movieData.title;
+  // Find the movies with the same genre and director
   const similarMoviesGenre = moviesData.filter((movie) => {
     return movie.genre === movieData.genre && movie.title != movieData.title;
   });
@@ -50,10 +53,11 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
     if(favoriteMovie.includes(movieData.id)){return true}else{return false}
   })(user.favoriteMovies)
 
+  // Return a view of the movie with movies of the same genre and director under it
   return (
     <div>
       <Row>
-        <Card className="h-100">
+        <Card className="h-100 p-0">
           <Card.Img
             alt={altTextImage}
             src={movieData.imgUrl}
@@ -129,14 +133,16 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
   );
 };
 
+// The propTypes for the MovieView component
 MovieView.propTypes = {
-  movieData: PropTypes.shape({
-    title: PropTypes.string,
-    director: PropTypes.string,
-    directorText: PropTypes.string,
-    genre: PropTypes.string,
-    genreText: PropTypes.string,
-    imgUrl: PropTypes.string,
-    description: PropTypes.string,
-  }),
+  user: PropTypes.object,
+  updateUserData: PropTypes.func,
+  moviesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  token: PropTypes.string,
 };

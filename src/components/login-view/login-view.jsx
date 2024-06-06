@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import {Form,Button,Card} from "react-bootstrap"
+import PropTypes from "prop-types";
+
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -8,15 +10,16 @@ export const LoginView = ({ onLoggedIn }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = { Username: username, Password: password };
-  
+    const loginData = { Username: username, Password: password };
+
+    // Send a request to the server for authentication
     const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/login"
     fetch(dbUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",  
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(loginData),
       
     })
       .then((response) => response.json())
@@ -24,8 +27,10 @@ export const LoginView = ({ onLoggedIn }) => {
         console.log("Login response: ", data);
 
         if (data.user) {
+          // Save the token and user in local storage
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
+          // Log in user
           onLoggedIn(data.user, data.token);
         } else {
           alert("No such user");
@@ -36,6 +41,7 @@ export const LoginView = ({ onLoggedIn }) => {
       });
   };
 
+  // Return a form to allow users to log in
   return (
     <Card>
       <Card.Body>
@@ -75,4 +81,9 @@ export const LoginView = ({ onLoggedIn }) => {
       
     </Card>
   );
+};
+
+// The propTypes for the LoginView component
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func.isRequired,
 };

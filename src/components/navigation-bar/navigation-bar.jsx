@@ -1,9 +1,12 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import "./navigation-bar.scss";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
+  // Return expandable navigation bar
   return (
-    <Navbar expand="lg" className="bg-body-secondary mb-2">
+    <Navbar expand="lg" className="bg-body-secondary mb-2 navbackground navbar-dark">
       <Container>
         <Link to="/">
           <Navbar.Brand href="">mySciFiApp</Navbar.Brand>
@@ -43,4 +46,10 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
       </Container>
     </Navbar>
   );
+};
+
+// The propTypes for the NavigationBar component
+PropTypes.propTypes = {
+  user: PropTypes.object,
+  onLoggedOut: PropTypes.func,
 };
