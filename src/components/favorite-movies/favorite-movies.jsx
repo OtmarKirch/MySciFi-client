@@ -19,7 +19,13 @@ export const FavoriteMovies = ({
   // Map over the favoriteMovies array and render a MovieCard component for each movie
   return (
     <>
-      {favoriteMovies.map((movie) => (
+      {!favoriteMovies.length && (
+        <Col>
+          <h3 className="text-center">You have no favorite movies yet!</h3>
+        </Col>
+      )}
+      {
+      favoriteMovies.map((movie) => (
         <Col className="mb-4" key={movie.id} md={3}>
           <MovieCard userData={userData} key={movie.id} movieData={movie} />
         </Col>

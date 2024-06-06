@@ -32,6 +32,7 @@ export const MovieCard = (props) => {
   );
 };
 
+// The propTypes for the MovieCard component
 MovieCard.propTypes = {
   movieData: PropTypes.shape({
     title: PropTypes.string.isRequired,

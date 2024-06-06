@@ -27816,6 +27816,7 @@ const MovieCard = (props)=>{
     }, void 0, false);
 };
 _c = MovieCard;
+// The propTypes for the MovieCard component
 MovieCard.propTypes = {
     movieData: (0, _propTypesDefault.default).shape({
         title: (0, _propTypesDefault.default).string.isRequired
@@ -42897,23 +42898,39 @@ const FavoriteMovies = ({ userData, moviesData })=>{
     });
     // Map over the favoriteMovies array and render a MovieCard component for each movie
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                className: "mb-4",
-                md: 3,
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                    userData: userData,
-                    movieData: movie
-                }, movie.id, false, {
+        children: [
+            !favoriteMovies.length && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                    className: "text-center",
+                    children: "You have no favorite movies yet!"
+                }, void 0, false, {
                     fileName: "src/components/favorite-movies/favorite-movies.jsx",
                     lineNumber: 24,
                     columnNumber: 11
                 }, undefined)
-            }, movie.id, false, {
+            }, void 0, false, {
                 fileName: "src/components/favorite-movies/favorite-movies.jsx",
                 lineNumber: 23,
                 columnNumber: 9
-            }, undefined))
-    }, void 0, false);
+            }, undefined),
+            favoriteMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                    className: "mb-4",
+                    md: 3,
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        userData: userData,
+                        movieData: movie
+                    }, movie.id, false, {
+                        fileName: "src/components/favorite-movies/favorite-movies.jsx",
+                        lineNumber: 30,
+                        columnNumber: 11
+                    }, undefined)
+                }, movie.id, false, {
+                    fileName: "src/components/favorite-movies/favorite-movies.jsx",
+                    lineNumber: 29,
+                    columnNumber: 9
+                }, undefined))
+        ]
+    }, void 0, true);
 };
 _c = FavoriteMovies;
 // The propTypes for the FavoriteMovies component
