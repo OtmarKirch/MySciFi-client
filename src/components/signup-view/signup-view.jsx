@@ -6,7 +6,6 @@ export const SignupView = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [birthday, setBirthday] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -15,11 +14,10 @@ export const SignupView = () => {
         Username: username,
         name: name,
         email: email,
-        Password: password,
-        //Birthday: birthday
+        Password: password
     }
-    console.log(data)
 
+    // Send a request to the server for registering
     const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/register"
     fetch(dbUrl, {
         method: "POST",
@@ -39,6 +37,7 @@ export const SignupView = () => {
 
   };
 
+  // Return a form to allow users to sign up
   return (
     <Card>
       <Card.Body>
@@ -92,16 +91,6 @@ export const SignupView = () => {
         minLength="5"
         >
         </Form.Control>
-      </Form.Group>
-      <Form.Group>
-        <Form.Label>Birthday</Form.Label>
-        <Form.Control
-          type="date"
-          aria-label="Put in your Birthday"
-          aria-required="false"
-          value={birthday}
-          onChange={(e)=>setBirthday(e.target.value)}
-        ></Form.Control>
       </Form.Group>
       <Button
       variant="primary"

@@ -5,17 +5,19 @@ import { Link } from "react-router-dom";
 import { MovieCard } from "../movie-card/movie-card";
 
 export const MovieView = ({ user, updateUserData, moviesData, token }) => {
+  // Get the movieId from the URL and find the movie data
   const { movieId } = useParams();
-
   const movieData = moviesData.find((movie) => {
     return movie.id === movieId;
   });
 
+  // Handle the favorite movie buttons add and delete
   const handleFavoriteMovie = (event, addDelete) => {
     event.preventDefault();
     const requestData = { favoriteMovie: movieData.title };
     let requestMethod = addDelete === "add" ? "POST" : "DELETE";
 
+    // Send a request to the server to add or delete the selected movie from the favorite movies of the user
     const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/favoritemovie"
     fetch(dbUrl, {
       method: requestMethod,
@@ -37,6 +39,7 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
   };
 
   const altTextImage = "Movie poster of " + movieData.title;
+  // Find the movies with the same genre and director
   const similarMoviesGenre = moviesData.filter((movie) => {
     return movie.genre === movieData.genre && movie.title != movieData.title;
   });
@@ -45,14 +48,20 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
       movie.director === movieData.director && movie.title != movieData.title
     );
   });
+
+  let alreadyAdded = ((favoriteMovie)=>{
+    if(favoriteMovie.includes(movieData.id)){return true}else{return false}
+  })(user.favoriteMovies)
+
+  // Return a view of the movie with movies of the same genre and director under it
   return (
     <div>
-      <Row className="mb-4">
-        <Card>
+      <Row>
+        <Card className="h-100 p-0">
           <Card.Img
             alt={altTextImage}
             src={movieData.imgUrl}
-            className="w-100"
+            variant="top"
           />
           <Card.Body>
             <Card.Title>{movieData.title}</Card.Title>
@@ -65,6 +74,7 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
               </Link>
               <br />
               <Button
+                disabled={alreadyAdded}
                 variant="primary"
                 onClick={(e) => {
                   handleFavoriteMovie(e, "add");
@@ -72,7 +82,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
               >
                 Add to favorite movies
               </Button>
+              <br/>
               <Button
+                disabled={!alreadyAdded}
                 variant="primary"
                 className="mt-2"
                 onClick={(e) => {
@@ -85,7 +97,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
           </Card.Body>
         </Card>
       </Row>
-      <h2>Movies in the Genre</h2>
+      <h2 className="mt-3">The Genre</h2>
+      {movieData.genreText}
+      <h3 className="mt-3">More movies in the Genre</h3>
       <Row className="mb-6">
         {similarMoviesGenre.map((movie) => (
           <>
@@ -99,7 +113,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
           </>
         ))}
       </Row>
-      <h2>Movies from the Director</h2>
+      <h2 className="mt-3">The Director</h2>
+      {movieData.directorText}
+      <h3 className="mt-3">More movies from the Director</h3>
       <Row className="mb-6">
         {similarMoviesDirector.map((movie) => (
           <>
@@ -117,12 +133,16 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
   );
 };
 
+// The propTypes for the MovieView component
 MovieView.propTypes = {
-  movieData: PropTypes.shape({
-    title: PropTypes.string,
-    director: PropTypes.string,
-    genre: PropTypes.string,
-    imgUrl: PropTypes.string,
-    description: PropTypes.string,
-  }),
+  user: PropTypes.object,
+  updateUserData: PropTypes.func,
+  moviesData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      description: PropTypes.string,
+    })
+  ).isRequired,
+  token: PropTypes.string,
 };

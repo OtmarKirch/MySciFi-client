@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
+import propTypes from "prop-types";
 
 export const UserProfile = ({
   user,
@@ -20,11 +21,12 @@ export const UserProfile = ({
     if (newName !== "") requestData.name = newName;
     if (newEmail !== "") requestData.email = newEmail;
 
-    console.log(JSON.stringify(requestData))
+    console.log(JSON.stringify(requestData));
 
-
+    // Send a request to the server to update the user details
     if (Object.keys(requestData).length != 0) {
-      const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/newdetails"
+      const dbUrl =
+        "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/newdetails";
       fetch(dbUrl, {
         method: "PUT",
         headers: {
@@ -50,23 +52,26 @@ export const UserProfile = ({
   const handleSetNewPassword = (event) => {
     event.preventDefault();
 
-    const requestData = { Password:newPassword}
+    const requestData = { Password: newPassword };
 
-    const confirmed = window.confirm("Please confirm to change your password")
+    const confirmed = window.confirm("Please confirm to change your password");
 
-    if (confirmed){
-        const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/newpassword"
-        fetch(dbUrl, {
+    // Send a request to the server to update the user password
+    if (confirmed) {
+      const dbUrl =
+        "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/newpassword";
+      fetch(dbUrl, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(requestData),
-      }).then(console.log("Password changed."))
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      })
+        .then(console.log("Password changed."))
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
@@ -80,7 +85,7 @@ export const UserProfile = ({
 
     if (confirmed) {
       onLoggedOut();
-
+      // Send a request to the server to delete the user account
       fetch("https://sci-fi-app.onrender.com/users/delete", {
         method: "DELETE",
         headers: {
@@ -92,6 +97,7 @@ export const UserProfile = ({
     }
   };
 
+  // Return a form to allow users to update their details
   return (
     <>
       <Card>
@@ -158,25 +164,36 @@ export const UserProfile = ({
           </Form>
         </Card.Body>
       </Card>
-      
-      <Button
-        className="col-6 m-3"
-        variant="primary"
-        onClick={() => {
-          onLoggedOut();
-        }}
-      >
-        Log out
-      </Button>
-      <Button
-        className="col-6 m-2"
-        variant="danger"
-        onClick={(e) => {
-          handleDeleteUser(e);
-        }}
-      >
-        Delete profile
-      </Button>
+      <div className="d-flex justify-content-center">
+        <Button
+          className="col-6 m-3"
+          variant="primary"
+          onClick={() => {
+            onLoggedOut();
+          }}
+        >
+          Log out
+        </Button>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Button
+          className="col-6 m-2"
+          variant="danger"
+          onClick={(e) => {
+            handleDeleteUser(e);
+          }}
+        >
+          Delete profile
+        </Button>
+      </div>
     </>
   );
+};
+
+// PropTypes for the UserProfile component
+propTypes.UserProfile = {
+  user: propTypes.object,
+  token: propTypes.string,
+  onLoggedOut: propTypes.func,
+  importNewUserData: propTypes.func,
 };
