@@ -92,16 +92,6 @@ export const SignupView = () => {
         >
         </Form.Control>
       </Form.Group>
-      <Form.Group>
-        <Form.Label>Birthday</Form.Label>
-        <Form.Control
-          type="date"
-          aria-label="Put in your Birthday"
-          aria-required="false"
-          value={birthday}
-          onChange={(e)=>setBirthday(e.target.value)}
-        ></Form.Control>
-      </Form.Group>
       <Button
       variant="primary"
       type="submit"

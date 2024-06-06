@@ -42326,32 +42326,6 @@ const SignupView = ()=>{
                             lineNumber: 82,
                             columnNumber: 7
                         }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Group, {
-                            children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Label, {
-                                    children: "Birthday"
-                                }, void 0, false, {
-                                    fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 96,
-                                    columnNumber: 9
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
-                                    type: "date",
-                                    "aria-label": "Put in your Birthday",
-                                    "aria-required": "false",
-                                    value: birthday,
-                                    onChange: (e)=>setBirthday(e.target.value)
-                                }, void 0, false, {
-                                    fileName: "src/components/signup-view/signup-view.jsx",
-                                    lineNumber: 97,
-                                    columnNumber: 9
-                                }, undefined)
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/signup-view/signup-view.jsx",
-                            lineNumber: 95,
-                            columnNumber: 7
-                        }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                             variant: "primary",
                             type: "submit",
@@ -42359,7 +42333,7 @@ const SignupView = ()=>{
                             children: "Register"
                         }, void 0, false, {
                             fileName: "src/components/signup-view/signup-view.jsx",
-                            lineNumber: 105,
+                            lineNumber: 95,
                             columnNumber: 7
                         }, undefined)
                     ]
