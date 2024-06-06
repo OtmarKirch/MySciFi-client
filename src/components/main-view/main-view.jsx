@@ -82,7 +82,11 @@ const MainView = () => {
               </>
             }
           />
-          <Route path="/signup" element={<SignupView />} />
+          <Route path="/signup" element={
+          <Col md={5}>
+          <SignupView />
+          </Col>
+          } />
           <Route
             path="/movies/:movieId"
             element={
