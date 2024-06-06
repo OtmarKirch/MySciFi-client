@@ -6,7 +6,7 @@ import "./navigation-bar.scss";
 export const NavigationBar = ({ user, onLoggedOut }) => {
   // Return expandable navigation bar
   return (
-    <Navbar expand="lg" className="bg-body-secondary mb-2 navbackground navbar-dark">
+    <Navbar expand="lg" className="mb-2 navbackground navbar-dark">
       <Container>
         <Link to="/">
           <Navbar.Brand href="">mySciFiApp</Navbar.Brand>

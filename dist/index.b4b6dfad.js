@@ -42410,7 +42410,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
     // Return expandable navigation bar
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
         expand: "lg",
-        className: "bg-body-secondary mb-2 navbackground navbar-dark",
+        className: "mb-2 navbackground navbar-dark",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
