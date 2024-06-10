@@ -11,10 +11,10 @@ export const SignupView = () => {
     event.preventDefault()
 
     const data = {
-        Username: username,
         name: name,
         email: email,
-        Password: password
+        Password: password,
+        Username: username,
     }
 
     // Send a request to the server for registering
@@ -26,13 +26,18 @@ export const SignupView = () => {
             "Content-Type": "application/json"
         }
     }).then((response)=> {
+      
         if (response.ok) {
             alert("Signup successful");
-            window.location.reload();
+            window.location.href = "/login";
 
-        }else{
-            alert("Signup failed")
         }
+         else{
+             response.text().then((text) => {
+               console.log(text);
+            alert("Signup failed: " + text);})
+           }
+         
     })
 
   };
@@ -44,10 +49,10 @@ export const SignupView = () => {
         <Card.Title className="mb-3 text-center">New Users</Card.Title>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
-        <Form.Label>Username:</Form.Label>
+        <Form.Label>Username (min 5 characters)</Form.Label>
         <Form.Control
           type="text"
-          aria-label="Put in your username"
+          aria-label="Put in your username (min 5 characters)"
           aria-required="true"
           value={username}
           onChange={(e)=>setUsername(e.target.value)}
@@ -56,10 +61,10 @@ export const SignupView = () => {
         ></Form.Control>
       </Form.Group>
       <Form.Group>
-        <Form.Label>Name:</Form.Label>
+        <Form.Label>Name (min 5 characters)</Form.Label>
         <Form.Control
           type="text"
-          aria-label="Put in your name"
+          aria-label="Put in your name (min 5 characters)"
           aria-required="true"
           value={name}
           onChange={(e)=>setName(e.target.value)}
@@ -68,10 +73,10 @@ export const SignupView = () => {
         ></Form.Control>
       </Form.Group>
       <Form.Group>
-        <Form.Label>Email:</Form.Label>
+        <Form.Label>Email (valid email address)</Form.Label>
         <Form.Control
           type="email"
-          aria-label="Put in your email"
+          aria-label="Put in your email address (valid email address)"
           aria-required="true"
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
@@ -80,15 +85,15 @@ export const SignupView = () => {
         ></Form.Control>
       </Form.Group>
       <Form.Group>
-        <Form.Label>Password:</Form.Label>
+        <Form.Label>Password (min 8 characters)</Form.Label>
         <Form.Control
         type="text"
-        aria-label="Put in your Password"
+        aria-label="Put in your Password (min 8 characters)"
         aria-required="true"
         value={password}
         onChange={(e)=>setPassword(e.target.value)}
         required
-        minLength="5"
+        minLength="8"
         >
         </Form.Control>
       </Form.Group>

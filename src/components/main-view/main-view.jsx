@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
@@ -16,6 +16,7 @@ const MainView = () => {
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
+  const [selectedMovies, setSelectedMovies] = useState([]);
   const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
@@ -24,8 +25,7 @@ const MainView = () => {
       return;
     }
     //fetch movies from database
-    const dbUrl =
-      "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/movies";
+    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/movies";
     fetch(dbUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -82,11 +82,14 @@ const MainView = () => {
               </>
             }
           />
-          <Route path="/signup" element={
-          <Col md={5}>
-          <SignupView />
-          </Col>
-          } />
+          <Route
+            path="/signup"
+            element={
+              <Col md={5}>
+                <SignupView />
+              </Col>
+            }
+          />
           <Route
             path="/movies/:movieId"
             element={
@@ -123,55 +126,49 @@ const MainView = () => {
                 ) : (
                   <>
                     <>
-                    <Col>
-                      sort by:
-                      <Button
-                        className="m-1"
-                        variant="primary"
-                        onClick={() => setSortBy("genre")}
-                      >
-                        Genre
-                      </Button>
-                      <Button
-                        className="m-1"
-                        variant="primary"
-                        onClick={() => setSortBy("director")}
-                      >
-                        Director
-                      </Button>
-                      <Button
-                        className="m-1"
-                        variant="primary"
-                        onClick={() => setSortBy("")}
-                      >
-                        None
-                      </Button>
-                    </Col>
+                      <Row>
+                        <Form >
+                          <Form.Group controlId="movieSearch">
+                            <Form.Label>Search</Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Search for title, genre or director"
+                            aria-label="Search for title, genre or director"
+                            aria-required="false"
+                            onChange={(e) => {
+                              const search = e.target.value.toLowerCase();
+                              setSelectedMovies(
+                                movies.filter((movie) => {
+                                  return (
+                                    movie.title.toLowerCase().includes(search) ||
+                                    movie.director.toLowerCase().includes(search) ||
+                                    movie.genre.toLowerCase().includes(search)
+                                  );
+                                })
+                              );
+                            }}
+                          />
+                          </Form.Group>
+                        </Form>
+                      </Row>
                     </>
                     <>
-                      {movies
-                        .sort((a, b) => {
-                          switch (sortBy) {
-                            case "genre":
-                              return a.genre.localeCompare(b.genre);
-                            case "director":
-                              return a.director.localeCompare(b.director);
-                            default:
-                              return 0;
-                          }
-                        })
-                        .map((movie, i) => (
+                      {selectedMovies.length === 0 ? (
+                        movies.map((movie) => (
                           <React.Fragment key={movie.id}>
-                            {(i === 0 ||
-                              (i > 0 &&
-                                movies[i - 1][sortBy] !== movie[sortBy])) && (
-                              <h3 className="mt-2 underline">{movie[sortBy]}</h3>
-                            )}
                             <Col className="mb-4 mt-2" md={3}>
                               <MovieCard userData={user} movieData={movie} />
                             </Col>
                           </React.Fragment>
-                        ))}
+                        ))
+                      ) : (
+                        selectedMovies.map((movie) => (
+                          <React.Fragment key={movie.id}>
+                            <Col className="mb-4 mt-2" md={3}>
+                              <MovieCard userData={user} movieData={movie} />
+                            </Col>
+                          </React.Fragment>
+                        )))}
                     </>
                   </>
                 )}
@@ -185,34 +182,25 @@ const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : (
-                  <UserProfile
-                    user={user}
-                    token={token}
-                    importNewUserData={(user) => {
-                      setUser(user);
-                    }}
-                    onLoggedOut={() => {
-                      setUser(null);
-                      setToken(null);
-                      localStorage.clear();
-                    }}
-                  />
-                )}
-              </>
-            }
-          ></Route>
-          <Route
-            path="/favoriteMovies"
-            element={
-              <>
-                {!user ? (
-                  <Navigate to="/login" replace />
-                ) : (
                   <>
-                    <FavoriteMovies
-                      userData={user}
-                      moviesData={movies}
-                    />
+                    <Col>
+                      <UserProfile
+                        user={user}
+                        token={token}
+                        importNewUserData={(user) => {
+                          setUser(user);
+                        }}
+                        onLoggedOut={() => {
+                          setUser(null);
+                          setToken(null);
+                          localStorage.clear();
+                        }}
+                      />
+                    </Col>
+                    <h2 className="text-center mt-4 mb-3">
+                      Your Favorite Movies
+                    </h2>
+                    <FavoriteMovies userData={user} moviesData={movies} />
                   </>
                 )}
               </>
