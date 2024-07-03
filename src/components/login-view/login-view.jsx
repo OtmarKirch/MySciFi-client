@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import {Form,Button,Card} from "react-bootstrap"
+import {Link} from "react-router-dom"
 import PropTypes from "prop-types";
 
 
@@ -75,6 +76,9 @@ export const LoginView = ({ onLoggedIn }) => {
         <Button type="submit" className="mt-3 w-100" variant="primary">
           Log In
         </Button>
+        <Link to="/signup">
+                <Button variant="link" className="mt-3">Sign up here</Button>
+        </Link>
       </Form>
       </Card.Body>
       <br />
