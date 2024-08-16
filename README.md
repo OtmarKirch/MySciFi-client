@@ -8,6 +8,8 @@
   * [Hosted on Netlify](#hosted-on-netlify)
   * [Running the app locally](#running-the-app-locally)
 - [Key Features](#key-features)
+  * [User Experience](#user-experience)
+  * [List of Features](#list-of-features)
 - [Impressions](#impressions)
   * [Login Screen](#login-screen)
   * [User Registration with Validation](#user-registration-with-validation)
@@ -17,7 +19,9 @@
   * [Single Movie View](#single-movie-view)
   * [User Profile and Favorite Movies](#user-profile-and-favorite-movies)
 - [Conclusion](#conclusion)
-- [User Experience](#user-experience)
+  * [Challenges](#challenges)
+  * [Future Improvements](#future-improvements)
+  * [Final Thoughts](#final-thoughts)
 
 <!-- tocstop -->
 
