@@ -25,7 +25,7 @@ const MainView = () => {
       return;
     }
     //fetch movies from database
-    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/movies";
+    const dbUrl = "http://3.70.138.183/movies";
     fetch(dbUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
