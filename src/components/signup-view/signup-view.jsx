@@ -18,7 +18,7 @@ export const SignupView = () => {
     }
 
     // Send a request to the server for registering
-    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/register"
+    const dbUrl = "http://3.70.138.183/register"
     fetch(dbUrl, {
         method: "POST",
         body: JSON.stringify(data),

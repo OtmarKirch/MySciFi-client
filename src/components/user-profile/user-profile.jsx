@@ -26,7 +26,7 @@ export const UserProfile = ({
     // Send a request to the server to update the user details
     if (Object.keys(requestData).length != 0) {
       const dbUrl =
-        "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/newdetails";
+        "http://3.70.138.183/users/newdetails";
       fetch(dbUrl, {
         method: "PUT",
         headers: {
