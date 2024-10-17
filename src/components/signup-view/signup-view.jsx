@@ -18,7 +18,7 @@ export const SignupView = () => {
     }
 
     // Send a request to the server for registering
-    const dbUrl = "http://3.70.138.183/register"
+    const dbUrl = "http://3.79.234.102/register"
     fetch(dbUrl, {
         method: "POST",
         body: JSON.stringify(data),
