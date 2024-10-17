@@ -26,7 +26,7 @@ export const UserProfile = ({
     // Send a request to the server to update the user details
     if (Object.keys(requestData).length != 0) {
       const dbUrl =
-        "http://3.70.138.183/users/newdetails";
+        "http://3.79.234.102/users/newdetails";
       fetch(dbUrl, {
         method: "PUT",
         headers: {

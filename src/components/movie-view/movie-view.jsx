@@ -18,7 +18,7 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
     let requestMethod = addDelete === "add" ? "POST" : "DELETE";
 
     // Send a request to the server to add or delete the selected movie from the favorite movies of the user
-    const dbUrl = "http://3.70.138.183/favoritemovie"
+    const dbUrl = "http://3.79.234.102/favoritemovie"
     fetch(dbUrl, {
       method: requestMethod,
       headers: {

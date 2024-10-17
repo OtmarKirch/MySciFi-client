@@ -25,7 +25,7 @@ const MainView = () => {
       return;
     }
     //fetch movies from database
-    const dbUrl = "http://3.70.138.183/movies";
+    const dbUrl = "http://3.79.234.102/movies";
     fetch(dbUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })
