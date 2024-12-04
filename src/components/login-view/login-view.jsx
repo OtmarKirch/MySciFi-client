@@ -14,7 +14,8 @@ export const LoginView = ({ onLoggedIn }) => {
     const loginData = { Username: username, Password: password };
 
     // Send a request to the server for authentication
-    const dbUrl = "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/login"
+    const dbUrl = "http://3.79.190.227/login"
+    console.log("Login at " + dbUrl)
     fetch(dbUrl, {
       method: "POST",
       headers: {
