@@ -17,8 +17,9 @@ export const MovieView = ({ user, updateUserData, moviesData, token }) => {
     const requestData = { favoriteMovie: movieData.title };
     let requestMethod = addDelete === "add" ? "POST" : "DELETE";
 
+    const serverUrl = "http://MyApplicationLoadBalancer-154308641.eu-central-1.elb.amazonaws.com"
     // Send a request to the server to add or delete the selected movie from the favorite movies of the user
-    const dbUrl = "http://3.79.190.227/users/favoritemovie"
+    const dbUrl = serverUrl + "/users/favoritemovie"
     fetch(dbUrl, {
       method: requestMethod,
       headers: {

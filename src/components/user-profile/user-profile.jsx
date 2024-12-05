@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import propTypes from "prop-types";
 
+
 export const UserProfile = ({
   user,
   token,
@@ -12,6 +13,9 @@ export const UserProfile = ({
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+
+  const serverUrl = "http://MyApplicationLoadBalancer-154308641.eu-central-1.elb.amazonaws.com"
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,8 +29,7 @@ export const UserProfile = ({
 
     // Send a request to the server to update the user details
     if (Object.keys(requestData).length != 0) {
-      const dbUrl =
-        "https://3.79.190.227/users/newdetails";
+      const dbUrl = serverUrl + "/users/newdetails";
       fetch(dbUrl, {
         method: "PUT",
         headers: {
@@ -58,8 +61,7 @@ export const UserProfile = ({
 
     // Send a request to the server to update the user password
     if (confirmed) {
-      const dbUrl =
-        "https://quiet-bastion-19832-9b36523e0b42.herokuapp.com/users/newpassword";
+      const dbUrl = serverUrl + "/users/newpassword";
       fetch(dbUrl, {
         method: "PUT",
         headers: {
@@ -86,7 +88,8 @@ export const UserProfile = ({
     if (confirmed) {
       onLoggedOut();
       // Send a request to the server to delete the user account
-      fetch("https://sci-fi-app.onrender.com/users/delete", {
+      const dbUrl = serverUrl + "/users/delete";
+      fetch(dbUrl, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

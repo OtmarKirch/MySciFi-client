@@ -13,8 +13,10 @@ export const LoginView = ({ onLoggedIn }) => {
     event.preventDefault();
     const loginData = { Username: username, Password: password };
 
+    const serverUrl = "http://MyApplicationLoadBalancer-154308641.eu-central-1.elb.amazonaws.com"
+
     // Send a request to the server for authentication
-    const dbUrl = "http://3.79.190.227/login"
+    const dbUrl = serverUrl + "/login"
     console.log("Login at " + dbUrl)
     fetch(dbUrl, {
       method: "POST",

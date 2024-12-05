@@ -24,8 +24,9 @@ const MainView = () => {
     if (!token) {
       return;
     }
+    const serverUrl = "http://MyApplicationLoadBalancer-154308641.eu-central-1.elb.amazonaws.com"
     //fetch movies from database
-    const dbUrl = "http://3.79.190.227/movies";
+    const dbUrl = serverUrl + "/movies";
     fetch(dbUrl, {
       headers: { Authorization: `Bearer ${token}` },
     })

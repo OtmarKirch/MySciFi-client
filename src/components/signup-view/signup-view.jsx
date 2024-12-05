@@ -17,8 +17,9 @@ export const SignupView = () => {
         Username: username,
     }
 
+      const serverUrl = "http://MyApplicationLoadBalancer-154308641.eu-central-1.elb.amazonaws.com"
     // Send a request to the server for registering
-    const dbUrl = "http://3.79.190.227/users/register"
+    const dbUrl = serverUrl + "/users/register"
     fetch(dbUrl, {
         method: "POST",
         body: JSON.stringify(data),
