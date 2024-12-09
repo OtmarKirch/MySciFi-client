@@ -8,6 +8,7 @@ import { UserProfile } from "../user-profile/user-profile";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { FavoriteMovies } from "../favorite-movies/favorite-movies";
+import { PictureManager } from "../picture-manager/picture-manager";
 import "./main-view.scss";
 
 const MainView = () => {
@@ -204,6 +205,16 @@ const MainView = () => {
                     <FavoriteMovies userData={user} moviesData={movies} />
                   </>
                 )}
+              </>
+            }
+          ></Route>
+          <Route
+           path="/pictures"
+            element={
+              <>
+                <Col>
+                  <PictureManager />
+                </Col>
               </>
             }
           ></Route>

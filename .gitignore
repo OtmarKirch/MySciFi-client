@@ -4,3 +4,4 @@ node_modules
 .parcel-cache
 test
 src/components/test-comp
+dist
